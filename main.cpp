@@ -1,9 +1,9 @@
 //Compilar en linux: g++ -o "nombreDelEjecutable" programa.cpp
 //Correr el archivo ""./nombreDelEjecutable
 #include <iostream>
-//#include "listadoble.cpp"
-//#include "listacircular.cpp"
-//#include "cola.cpp"
+#include "listadoble.cpp"
+#include "listacircular.cpp"
+#include "cola.cpp"
 
 using namespace std;
 //Metodos in scope
@@ -61,4 +61,43 @@ void ingresoManual(){
 void pruebas(){
     //Pruebas EDD
     cout<<"Pruebas EDD\n";
+    //Funcionalidades de lista circular
+    cout<<"Lista circular doble\n";
+    LCinsertar();
+    LCinsertar();
+    LCinsertar();
+    LCinsertar();
+    LCmostrar();
+    LCbuscar();
+    LCmodificar();
+    LCmostrar();
+    LCeliminar();
+    LCmostrar();
+
+    //Funcionalidades de la lista doble
+    /*cout<<"Lista doble\n";
+    LDinsertar();
+    LDinsertar();
+    LDinsertar();
+    LDinsertar();
+    LDmostrar();
+    LDbuscar();
+    LDmodificar();
+    LDmostrar();
+    LDeliminar();
+    LDmostrar();*/
+
+    //Funcionalidades de la cola
+    /*insertarCola();
+    insertarCola();
+    insertarCola();
+    insertarCola();
+    insertarCola();
+    cout<<endl<<"La cola es: "<<endl;
+    mostrarCola();
+    buscarCola();
+    buscarCola();
+    eliminarCola();
+    cout<<endl<<"La cola es: "<<endl;
+    mostrarCola();*/
 }

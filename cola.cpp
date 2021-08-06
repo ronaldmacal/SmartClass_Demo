@@ -2,46 +2,34 @@
 using namespace std;
 
 //Scope
-void insertarCola();
-void mostrarCola();
-void buscarCola();
+void Colainsertar();
+void Colamostrar();
+void Colabuscar();
+void Colaeliminar();
 
-struct Nodo{
-    int dato;
-    Nodo* siguiente;
-}*primero,*ultimo; 
+struct NodoC{
+    int data;
+    NodoC* siguienteC;
+}*primeroC,*ultimoC; 
 
-int main(){
-    //Metodo principal
-    insertarCola();
-    insertarCola();
-    insertarCola();
-    insertarCola();
-    insertarCola();
-    cout<<endl<<"La cola es: "<<endl;
-    mostrarCola();
-    buscarCola();
-    buscarCola();
-}
-
-void insertarCola(){
-    Nodo* nuevo=new Nodo();
+void Colainsertar(){
+    NodoC* nuevo=new NodoC();
     cout<<"Ingrese el dato: ";
-    cin>>nuevo->dato;
+    cin>>nuevo->data;
 
-    if(primero==NULL){
-        primero=nuevo;
-        primero->siguiente=NULL;
-        ultimo=primero;
+    if(primeroC==NULL){
+        primeroC=nuevo;
+        primeroC->siguienteC=NULL;
+        ultimoC=primeroC;
     }else{
-        ultimo->siguiente=nuevo;
-        nuevo->siguiente=NULL;
-        ultimo=nuevo;
+        ultimoC->siguienteC=nuevo;
+        nuevo->siguienteC=NULL;
+        ultimoC=nuevo;
     }
     cout<<endl<<"Nodo ingresado correctamente"<<endl<<endl;
 }
 
-void mostrarCola(){
+void Colamostrar(){
     Nodo* auxiliar=new Nodo();
     auxiliar=primero;
     if(primero!=NULL){
@@ -55,24 +43,62 @@ void mostrarCola(){
     }
 }
 
-void buscarCola(){
+void Colabuscar(){
     int buscar;
     cout<<"Ingrese el valor a buscar: ";
     cin>>buscar;
-    Nodo* auxiliar=new Nodo();
-    auxiliar=primero;
+    NodoC* auxiliar=new NodoC();
+    auxiliar=primeroC;
     bool encontrar=false;
-    if(primero!=NULL){
-        while(auxiliar!=NULL){
-            if(auxiliar->dato==buscar){
+    if(primeroC!=NULL){
+        while(auxiliar!=NULL && encontrar!=true){
+            if(auxiliar->data==buscar){
                 encontrar=true;
             }
-            auxiliar=auxiliar->siguiente;
+            auxiliar=auxiliar->siguienteC;
         }
+    }else{
+        cout<<"La cola actual no tiene elementos\n";
     }
     if(encontrar){
         cout<<"Nodo encontrado con éxito\n";
     }else{
         cout<<"Nodo no encontrado, ingrese otro valor\n";
+    }
+}
+
+void Colaeliminar(){
+    int buscar;
+    bool encontrar=false;
+    cout<<"Ingrese el valor a eliminar: ";
+    cin>>buscar;
+    NodoC* anterior=new NodoC();
+    anterior=NULL;
+    NodoC* auxiliar=new NodoC();
+    auxiliar=primeroC;
+    if(primeroC!=NULL){
+        while(auxiliar!=NULL && encontrar!=true){
+            if(auxiliar->data==buscar){
+                //Nodo encontrado
+                encontrar=true;
+                if(auxiliar==primeroC){
+                    primeroC=primeroC->siguienteC;
+                }else if(auxiliar==ultimoC){
+                    anterior->siguienteC=NULL;
+                    ultimoC=anterior;
+                }else{
+                    anterior->siguienteC=auxiliar->siguienteC;
+                }
+            }
+            anterior=auxiliar;
+            auxiliar=auxiliar->siguienteC;
+        }
+    }else{
+        cout<<"La cola actual no tiene elementos\n";
+    }
+    if(encontrar){
+        cout<<"El nodo fue eliminado con éxito\n";
+    }else{
+        cout<<"Nodo no encontrado, no fue eliminado\n";
     }
 }
