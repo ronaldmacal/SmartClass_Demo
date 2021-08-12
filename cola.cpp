@@ -30,12 +30,12 @@ void Colainsertar(){
 }
 
 void Colamostrar(){
-    Nodo* auxiliar=new Nodo();
-    auxiliar=primero;
-    if(primero!=NULL){
+    NodoC* auxiliar=new NodoC();
+    auxiliar=primeroC;
+    if(primeroC!=NULL){
         while(auxiliar!=NULL){
-            cout<<endl<<""<<auxiliar->dato<<endl;
-            auxiliar=auxiliar->siguiente;
+            cout<<endl<<""<<auxiliar->data<<endl;
+            auxiliar=auxiliar->siguienteC;
         }
 
     }else{
