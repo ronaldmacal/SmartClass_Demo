@@ -1,24 +1,30 @@
 #include <iostream>
+#include <cstring>
 using namespace std;
 
 //Scope
-void LDinsertar();
-void LDmostrar();
-void LDbuscar();
-void LDmodificar();
-void LDeliminar();
+void LDgenerarLista();
+//void LDmostrar();
+//void LDbuscar();
+void LDingresarLinealizado();
+//void LDeliminar();
 
 struct Nodo{
-    int dato;
+    int identificador;//secuencial
+    string carnet;
+    string nombre;
+    string descripcion;
+    string materia;
+    string fecha;
+    string hora;
+    string estado;
     Nodo* siguiente;
     Nodo* anterior;
 }*primero,*ultimo;
 
-void LDinsertar(){
+void LDgenerarLista(int Ltam){
     Nodo* nuevo=new Nodo();
-    cout<<"Ingrese el dato que contendrá el nodo: ";
-    cin>>nuevo->dato;
-
+    nuevo->identificador=Ltam;
     if(primero==NULL){
         primero=nuevo;
         primero->siguiente=NULL;
@@ -30,22 +36,48 @@ void LDinsertar(){
         nuevo->anterior=ultimo;
         ultimo=nuevo;
     }
-    cout<<"Nodo ingresado\n";
+}
+
+void LDingresarLinealizado(int posicion,string Rcarnet,string Rnombre,string Rdescripcion,string Rmateria,string Rfecha,string Rhora,string Restado){
+    Nodo* auxiliar=new Nodo();
+    auxiliar=primero;
+    bool encontrar=false;
+    if (primero!=NULL && encontrar!=true){
+        while(auxiliar!=NULL){
+            if(auxiliar->identificador==posicion){
+                encontrar=true;
+                auxiliar->carnet=Rcarnet;
+                auxiliar->nombre=Rnombre;
+                auxiliar->descripcion=Rdescripcion;
+                auxiliar->materia=Rmateria;
+                auxiliar->fecha=Rfecha;
+                auxiliar->hora=Rhora;
+                auxiliar->estado=Restado;
+            }
+            auxiliar=auxiliar->siguiente;
+        }
+    }
 }
 
 void LDmostrar(){
     Nodo* auxiliar=new Nodo();
     auxiliar=primero;
+    cout<<"\nMostrar Tareas";
     if (primero!=NULL){
         while(auxiliar!=NULL){
-            cout<<"\n"<<auxiliar->dato<<"\n";
+            if(!(auxiliar->carnet.empty())){
+                cout<<"\nPos: "<<auxiliar->identificador<<". Carnet: "<<auxiliar->carnet;
+            }else{
+                cout<<"\nPos: "<<auxiliar->identificador;
+            }
             auxiliar=auxiliar->siguiente;
         }
     }else{
-        cout<<"La lista se encuentra vacía\n";
+        cout<<"La lista de tareas se encuentra vacía\n";
     }
 }
 
+/*
 void LDbuscar(){
     Nodo* auxiliar=new Nodo();
     auxiliar=primero;
@@ -68,30 +100,7 @@ void LDbuscar(){
     }
 }
 
-void LDmodificar(){
-    Nodo* auxiliar=new Nodo();
-    auxiliar=primero;
-    int valor;
-    cout<<"Ingrese el valor a modificar\n";
-    cin>>valor;
-    bool encontrar=false;
-    if (primero!=NULL && encontrar!=true){
-        while(auxiliar!=NULL){
-            if(auxiliar->dato==valor){
-                encontrar=true;
-                cout<<"Ingrese el nuevo valor: \n";
-                cin>>auxiliar->dato;
-                cout<<"Modo modificado\n";
-            }
-            auxiliar=auxiliar->siguiente;
-        }
-    }
-    if (encontrar){
-        cout<<"Nodo modificado\n";
-    }else{
-        cout<<"Nodo no existe\n";
-    }
-}
+
 
 void LDeliminar(){
     Nodo* auxiliar=new Nodo();
@@ -129,3 +138,4 @@ void LDeliminar(){
         cout<<"Nodo no existe\n";
     }
 }
+*/
