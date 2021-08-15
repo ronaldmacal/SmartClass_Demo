@@ -7,6 +7,7 @@
 #include <sstream> //Librería para strings
 #include <fstream> //Librería para los archivos
 #include <cstdlib> //Librería para convertir strings a enteros
+#include <bits/stdc++.h> //Librería para hacer split en la cadena fecha
 using namespace std;
 
 //Metodos in scope
@@ -19,6 +20,15 @@ void reportes();
 void manualEstudiantes();
 void manualTareas();
 void linealizartareas(string path);
+
+//Metodos para capturar errores
+bool errorFecha(string fecha);
+bool errorHora(string hora);
+bool errorDpi(string dpi);
+bool errorCarnet(string carnet);
+bool errorCorreo(string correo);
+
+//Variables utilizadas para guardar los valores dimensionales del cubo
 int maxmes = 0;
 int maxdia = 0;
 int maxhora = 0;
@@ -28,8 +38,18 @@ int main()
     //menuprincipal();
     //ingresoManual();
     //cargaestudiantes();
-    cargatareas();
+    //cargatareas();
     //linealizartareas();
+    string horas;
+    cout<<"\nIngrese Correo: ";
+    getline(cin,horas);
+    bool prueba=errorCorreo(horas);
+    if(prueba==true){
+        cout<<"\nCorreo valido";
+    }else{
+        cout<<"\nCorreo no Valido";
+    }
+
     return 0;
 }
 
@@ -169,7 +189,7 @@ void cargaestudiantes()
     archivo.close();
     cout << "\n Carga masiva creada con éxito. Puede probar con los nuevos datos.\n\n\n";
     LCmostrar();
-    menuprincipal();
+    //menuprincipal();
 }
 
 /*
@@ -309,8 +329,6 @@ void Tarea::guardarTarea(string Hora,string Carnet,string Nombre,string Descripc
     Tfecha=Fecha;
     Testado=Estado;
 }
-
-
 void linealizartareas(string path)
 {
     //Crear un arreglo con los datos del programa
@@ -379,14 +397,10 @@ void linealizartareas(string path)
                 if(cuboDatos[i][j][w].Tid==1){
                     posicionLinealizado=(j*maxdia*(maxhora-7))+(i*(maxhora-7))+w;
                     LDingresarLinealizado(posicionLinealizado,cuboDatos[i][j][w].Tcarnet,cuboDatos[i][j][w].Tnombre,cuboDatos[i][j][w].Tdescripcion,cuboDatos[i][j][w].Tmateria,cuboDatos[i][j][w].Tfecha,cuboDatos[i][j][w].Thora,cuboDatos[i][j][w].Testado);
-
-                    //Borrable------
-                    cout<<"\nEstu: "<<cuboDatos[i][j][w].Tcarnet;
                 }
             }
         }
     }
-    LDmostrar();
 }
 
 /*
@@ -394,3 +408,140 @@ void linealizartareas(string path)
 ************** Validaciones del ingreso de datos para los errores  **************
 *********************************************************************************
 */
+//Metodo para verificar si existe en el listado el Carnet: LCverificarCarnet(string carnet);
+//Verifica si la fecha es coherente
+bool errorFecha(string fecha){
+    vector <string> tokens;
+    stringstream check1(fecha);
+    string intermediate;
+    while (getline(check1,intermediate,'/'))
+    {
+        /* code */
+        tokens.push_back(intermediate);
+    }
+    try
+    {
+        string anio=tokens[0];
+        string mes=tokens[1];
+        string dia=tokens[2];
+
+        //Ya tengo los datos verificar la validez
+        if(!(anio.length()==4)){
+            cout<<"\nError: Año no ingresado correctamente.";
+            return false;
+        }
+        int mesE=atoi(mes.c_str());
+        int diaE=atoi(dia.c_str());
+        //Valida que el mes esté entre 7 y 11
+        if(!(mesE>=7 && mesE<=11)){
+            cout<<"\nError: Mes no está entre el rango Julio-Noviembre";
+            return false;
+        }
+
+        //Valida que los días estén entre 1 y 30 días.
+        if(!(diaE>=1 && diaE<=30)){
+            cout<<"\nError: los días en la fecha no están en el rango de días (0-30)";
+            return false;
+        }else{
+            return true;
+        }
+
+    }
+    catch(const std::exception& e)
+    {
+        return false;
+    }
+    return false;
+}
+
+//Verifica si la hora ingresada es válida, entre 8am-16pm
+bool errorHora(string hora){
+    try
+    {
+        int horaR=atoi(hora.c_str());
+        if(!(horaR>=8 && horaR<=16)){
+            cout<<"\nError: la hora ingresada no está en el rango (8am-16pm)";
+            return false;
+        }else{
+            return true;
+        }
+    }
+    catch(const std::exception& e)
+    {
+        cout<<"\nError en la hora ingresada";
+        return false;
+    }
+}
+
+//Revisa si es digito
+bool esNumero(const string& str)
+{
+    for (char const &c : str) {
+        if (std::isdigit(c) == 0) return false;
+    }
+    return true;
+}
+
+//Verifica si el DPI es correcto
+bool errorDpi(string dpi){
+    if(dpi.length()==13){
+        if(esNumero(dpi)){
+            return true;
+        }else{
+            cout<<"\nError: El DPI contiene letras.";
+        }
+    }else{
+        cout<<"\nError: El DPI no tiene 13 dígitos.";
+        return false;
+    }
+    return false;
+}
+
+//Verifica si el carnet es correcto
+bool errorCarnet(string carnet){
+    if(carnet.length()==9){
+        if(esNumero(carnet)){
+            return true;
+        }else{
+            cout<<"\nError: El Carnet contiene letras.";
+        }
+    }else{
+        cout<<"\nError: El Carnet no tiene 9 dígitos.";
+        return false;
+    }
+    return false;
+}
+
+//Verifica si el correo es correcto
+bool errorCorreo(string correo){
+    vector <string> tokens;
+    stringstream check1(correo);
+    string intermediate;
+    try
+    {
+        while (getline(check1,intermediate,'@'))
+        {
+            tokens.push_back(intermediate);
+        }
+        if(tokens.size()==1 || tokens.size()>2){
+            return false;
+        }
+        string final=tokens[1];
+        vector <string> tokens2;
+        stringstream check2(final);
+        string inter;
+        while (getline(check2,inter,'.'))
+        {
+            tokens2.push_back(inter);
+        }
+        string dom=tokens2[tokens2.size()-1];
+        if(dom=="com" || dom=="es" || dom=="org"){
+            return true;
+        }
+    }
+    catch(const std::exception& e)
+    {
+        return false;
+    }
+    return false;
+}

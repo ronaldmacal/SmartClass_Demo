@@ -8,6 +8,7 @@ void LCmostrar();
 void LCbuscar();
 void LCmodificar();
 void LCeliminar();
+bool LCverificarCarnet(string Rcarnet);
 
 struct NodoCircular{
     string carnet;
@@ -21,6 +22,26 @@ struct NodoCircular{
     NodoCircular* siguienteCircular;
     NodoCircular* anteriorCircular;
 }*raiz,*tope;
+
+//Devuelve 1: si existe, 0: no existe en la lista
+bool LCverificarCarnet(string Rcarnet){
+    NodoCircular* actual=new NodoCircular();
+    actual=raiz;
+    if(raiz!=NULL){
+        do
+        {
+            /* code */
+            if(actual->carnet==Rcarnet){
+                return true;
+            }
+            actual=actual->siguienteCircular;
+        } while (actual!=raiz);
+        return false;
+    }else{
+        cout<<"\nLista vacía";
+    }
+    return false;
+}
 
 void LCinsertar(string Rcarnet,string Rdpi,string Rnombre,string Rcarrera,string Rcorreo,string Rcontra,int Rcreditos,int Redad){
     NodoCircular* nuevo=new NodoCircular();
