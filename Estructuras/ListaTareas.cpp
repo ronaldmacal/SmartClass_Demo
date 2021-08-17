@@ -4,9 +4,9 @@ using namespace std;
 
 //Scope
 void LDgenerarLista();
+void LDingresarLinealizado();
 //void LDmostrar();
 //void LDbuscar();
-void LDingresarLinealizado();
 //void LDeliminar();
 
 struct Nodo{

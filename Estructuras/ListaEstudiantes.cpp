@@ -3,11 +3,10 @@
 using namespace std;
 
 //Scope
-void LCinsertar();
+void LCinsertar(string Rcarnet,string Rdpi,string Rnombre,string Rcarrera,string Rcorreo,string Rcontra,int Rcreditos,int Redad);
 void LCmostrar();
-void LCbuscar();
-void LCmodificar();
-void LCeliminar();
+void LCmodificar(string carnetOriginal,string NCarnet,string NDPI,string NNombre, string NCarrera,string NPassword,string NCorreo,string NCreditos,string NEdad);
+void LCeliminar(string carnetEliminar);
 bool LCverificarCarnet(string Rcarnet);
 
 struct NodoCircular{
@@ -66,7 +65,6 @@ void LCinsertar(string Rcarnet,string Rdpi,string Rnombre,string Rcarrera,string
         tope=nuevo;
         raiz->anteriorCircular=tope;
     }
-    cout<<"Nodo insertado\n";
 }
 
 void LCmostrar(){
@@ -96,73 +94,46 @@ void LCmostrar(){
     }
 }
 
-void LCbuscar(){
+void LCmodificar(string carnetOriginal,string NCarnet,string NDPI,string NNombre, string NCarrera,string NPassword,string NCorreo,string NCreditos,string NEdad){
     NodoCircular* actual=new NodoCircular();
     actual=raiz;
     bool encontrado=false;
-    string nodoBuscado;
-    cout<<"Ingrese el Carnet a buscar en la lista: \n";
-    getline(cin,nodoBuscado);
     if(raiz!=NULL){
         do
         {
             /* code */
-            if(actual->carnet==nodoBuscado){
-                cout<<"\nEstudiante encontrado\n";
+            if(actual->carnet==carnetOriginal){
+                actual->carnet=NCarnet;
+                actual->dpi=NDPI;
+                actual->nombre=NNombre;
+                actual->carrera=NCarrera;
+                actual->contrasena=NPassword;
+                actual->correo=NCorreo;
+                actual->creditos=atoi(NCreditos.c_str());
+                actual->edad=atoi(NEdad.c_str());
                 encontrado=true;
             }
             actual=actual->siguienteCircular;
         } while (actual!=raiz && encontrado!=true);
         if(!encontrado){
-            cout<<"El estudiante no existe, verifique los datos y vuelva a intentarlo\n";
-        }
-    }else{
-        cout<<"\nLa lista de estudiantes se encuentra vacía\n";
-    }
-}
-
-void LCmodificar(){
-    //Metodo por ahora no funcional debido a que se pueden pedir modificar varias atributos, no solo uno. Dependerá de las funcionalidades del programa.
-    NodoCircular* actual=new NodoCircular();
-    actual=raiz;
-    bool encontrado=false;
-    string nodoBuscado;
-    cout<<"Ingrese el dato a modificar\n";
-    cin>>nodoBuscado;
-    if(raiz!=NULL){
-        do
-        {
-            /* code */
-            if(actual->carnet==nodoBuscado){
-                cout<<"\nNodo encontrado\n";
-                cout<<"Ingrese el nuevo dato para este Nodo: \n";
-                getline(cin,actual->carnet);
-                encontrado=true;
-            }
-            actual=actual->siguienteCircular;
-        } while (actual!=raiz && encontrado!=true);
-        if(!encontrado){
-            cout<<"Nodo no encontrado\n";
+            cout<<"Estudiante no encontrado\n";
         }
     }else{
         cout<<"\nLa lista se encuentra vacía\n";
     }
 }
 
-void LCeliminar(){
+void LCeliminar(string carnetEliminar){
     NodoCircular* actual=new NodoCircular();
     actual=raiz;
     NodoCircular* anterior=new NodoCircular();
     anterior=NULL;
     bool encontrado=false;
-    string nodoBuscado;
-    cout<<" Ingrese el carnet del estudiante a eliminar: \n";
-    getline(cin,nodoBuscado);
     if(raiz!=NULL){
         do
         {
             /* code */
-            if(actual->carnet==nodoBuscado){
+            if(actual->carnet==carnetEliminar){
                 if(actual==raiz){
                     raiz=raiz->siguienteCircular;
                     raiz->anteriorCircular=tope;
@@ -175,7 +146,7 @@ void LCeliminar(){
                     anterior->siguienteCircular=actual->siguienteCircular;
                     actual->siguienteCircular->anteriorCircular=anterior;
                 }
-                cout<<"Nodo eliminado\n";
+                cout<<"Estudiante eliminado eliminado\n";
                 encontrado=true;
             }
             anterior=actual;

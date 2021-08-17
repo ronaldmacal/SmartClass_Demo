@@ -2,20 +2,36 @@
 using namespace std;
 
 //Scope
-void Colainsertar();
+void insertarError(int Rid,int Rclase, string Rtipo,string RidTarEst,string Rdescripcion);
 void Colamostrar();
-void Colabuscar();
-void Colaeliminar();
-
+//void Colabuscar();
+//void Colaeliminar();
+/*
+Codigo de errores:
+1. Error de fecha. Tarea
+2. Error de hora. Tarea.
+3. Error DPI. Estudiante
+4. Error Carnet. Estudiante
+5. Error Correo. Estudiante
+*/
 struct NodoC{
-    int data;
+    int id;
+    int clase;
+    string tipo;
+    string idTarEst;
+    string descripcion;
     NodoC* siguienteC;
 }*primeroC,*ultimoC; 
 
-void Colainsertar(){
+
+void insertarError(int Rid, int Rclase,string Rtipo,string RidTarEst,string Rdescripcion){
+    //Crea el ticket de error
     NodoC* nuevo=new NodoC();
-    cout<<"Ingrese el dato: ";
-    cin>>nuevo->data;
+    nuevo->id=Rid;
+    nuevo->tipo=Rtipo;
+    nuevo->clase=Rclase;
+    nuevo->idTarEst=RidTarEst;
+    nuevo->descripcion=Rdescripcion;
 
     if(primeroC==NULL){
         primeroC=nuevo;
@@ -26,23 +42,27 @@ void Colainsertar(){
         nuevo->siguienteC=NULL;
         ultimoC=nuevo;
     }
-    cout<<endl<<"Nodo ingresado correctamente"<<endl<<endl;
 }
+
 
 void Colamostrar(){
     NodoC* auxiliar=new NodoC();
     auxiliar=primeroC;
+    cout<<"\nCOLA DE ERRORES:";
     if(primeroC!=NULL){
         while(auxiliar!=NULL){
-            cout<<endl<<""<<auxiliar->data<<endl;
+            cout<<"\nError: #"<<auxiliar->id;
+            cout<<"\nID: "<<auxiliar->idTarEst;
+            cout<<"\nDescripción: "<<auxiliar->descripcion<<"\n";
             auxiliar=auxiliar->siguienteC;
         }
 
     }else{
-        cout<<endl<<"La Cola se encuentra vacía.";
+        cout<<endl<<"La Cola de errores se encuentra vacía.";
     }
 }
 
+/*
 void Colabuscar(){
     int buscar;
     cout<<"Ingrese el valor a buscar: ";
@@ -101,4 +121,4 @@ void Colaeliminar(){
     }else{
         cout<<"Nodo no encontrado, no fue eliminado\n";
     }
-}
+}*/
