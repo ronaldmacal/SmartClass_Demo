@@ -6,14 +6,7 @@ void insertarError(int Rid,int Rclase, string Rtipo,string RidTarEst,string Rdes
 void Colamostrar();
 //void Colabuscar();
 //void Colaeliminar();
-/*
-Codigo de errores:
-1. Error de fecha. Tarea
-2. Error de hora. Tarea.
-3. Error DPI. Estudiante
-4. Error Carnet. Estudiante
-5. Error Correo. Estudiante
-*/
+
 struct NodoC{
     int id;
     int clase;
@@ -24,7 +17,7 @@ struct NodoC{
 }*primeroC,*ultimoC; 
 
 
-void insertarError(int Rid, int Rclase,string Rtipo,string RidTarEst,string Rdescripcion){
+void insertarError(int Rid, int Rclase,string Rtipo,string RidTarEst,string Rdescripcion) {
     //Crea el ticket de error
     NodoC* nuevo=new NodoC();
     nuevo->id=Rid;

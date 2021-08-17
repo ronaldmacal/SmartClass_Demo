@@ -36,6 +36,13 @@ int maxmes = 0;
 int maxdia = 0;
 int maxhora = 0;
 int contadorError=1;//Valor autoincremental que se guarda en los errores
+int contadorTareasconError=1;//Valor incremental de la lista de errores
+string descripcionErrDPI="Error en el DPI, no cumple con los requisitos. Debe tener solo números y 13 dígitos.";
+string descripcionErrCarnet="Error en el Carnet del estudiante, no cumple con los requisitos. Debe tener solo números y 9 dígitos";
+string descripcionErrCorreo="Error en el correo ingresado, no cumple con los requisitos y formato [usuario.@dominio.{com | org | es}]";
+string descripcionErrCarnetE="Error, el Carnet no existe dentro del programa, revise los datos de ingreso. La tarea no se guardará en el programa.";
+string descripcionErrFecha="Error en la fecha, no coincide en el formato YYYY/MM/DD o los valores están fuera de rango. Meses deben ser Julio-Noviembre y un máximo de 30 días.";
+string descripcionErrHora="Error en la hora ingresada. De debe cumplir con el rango entero de 8am a 16pm";
 
 //Metodos de ingreso manual de Estudiantes | Tareas
 void Eingresar();
@@ -152,9 +159,6 @@ void cargatareas(string direccion)
 }
 
 //Funcionalidad: Carga masiva de estudiantes desde archivos
-string descripcionErrDPI="Error en el DPI, no cumple con los requisitos. Debe tener solo números y 13 dígitos.";
-string descripcionErrCarnet="Error en el Carnet del estudiante, no cumple con los requisitos. Debe tener solo números y 9 dígitos";
-string descripcionErrCorreo="Error en el correo ingresado, no cumple con los requisitos y formato [usuario.@dominio.{com | org | es}]";
 void cargaestudiantes(string direccion)
 {
     //Ingreso de estudiantes directamente desde un archivo CSV
@@ -217,7 +221,7 @@ void cargaestudiantes(string direccion)
 *********************************************************************************
 */
 void menudeErrores(){
-    cout<<"\nMenu de errores:"
+    cout<<"\nMenu de errores:";
 }
 
 /*
@@ -427,7 +431,7 @@ void manualTareas()
 {
     //Ingreso manual de tareas
     int opcion=0;
-    cout<<"\nAdvertencia: Antes de ingresar datos manual de Tareas. Asegurese de haber realizado la carga masiva."
+    cout<<"\nAdvertencia: Antes de ingresar datos manual de Tareas. Asegurese de haber realizado la carga masiva.";
     cout<<"\nManejo manual de tareas...";
     cout<<"\n1. Ingresar nueva tarea";
     cout<<"\n2. Modificar un tarea existente";
@@ -454,6 +458,7 @@ void manualTareas()
         break;
     }
 }
+
 
 void Tingresar()
 {
@@ -485,10 +490,29 @@ void Tingresar()
         bool phora=errorHora(Hora);
         bool pfecha=errorFecha(Fecha);
         if(phora==true && pfecha==true){
-            posicionLinealizado=(atoi(Dia.c_str())*maxdia*(maxhora-7))+(atoi(Mes.c_str())*(maxhora-7))+atoi(Hora.c_str());          
+            int posicionLinealizado=(atoi(Dia.c_str())*maxdia*(maxhora-7))+(atoi(Mes.c_str())*(maxhora-7))+atoi(Hora.c_str());          
             LDingresarLinealizado(posicionLinealizado,Carnet,Nombre,Descripcion,Materia,Fecha,Hora,Estado);
         }else{
-
+            //Guardar una vez en la lista de tareas con error
+            //int posicion,string Rmes, string Rdia, string Rcarnet,string Rnombre,string Rdescripcion,string Rmateria,string Rfecha,string Rhora,string Restado
+            insertarTareaErrores(contadorTareasconError,Mes,Dia,Carnet,Nombre,Descripcion,Materia,Fecha,Hora,Estado);
+            //insertarError(int Rid, int Rclase,string Rtipo,string RidTarEst,string Rdescripcion)
+            cout<<"\nExisten errores en los datos ingresados, dirijase al menú de errores para corregirlos.";
+            if(phora==false && pfecha==false){
+                //Generar ambos tickets de error
+                insertarError(contadorTareasconError,2,"Tarea",to_string(contadorTareasconError),descripcionErrHora);
+                contadorTareasconError++;
+                insertarError(contadorTareasconError,1,"Tarea",to_string(contadorTareasconError),descripcionErrFecha);
+                contadorTareasconError++;
+            }else if(pfecha==false){
+                //Guardar ticket fecha
+                insertarError(contadorTareasconError,1,"Tarea",to_string(contadorTareasconError),descripcionErrFecha);
+                contadorTareasconError++;
+            }else if(phora==false){
+                //Guardar ticket hora
+                insertarError(contadorTareasconError,2,"Tarea",to_string(contadorTareasconError),descripcionErrHora);
+                contadorTareasconError++;
+            }
         }
     }else{
         cout<<"\nEl carnet no existe en el programa. Ingrese ese nuevo estudiante o verifique los datos.";
@@ -499,13 +523,53 @@ void Tingresar()
 void Tmodificar()
 {
     //Modificar tarea
+    cout<<"\nListado de tareas en el sistema.";
+    LDmostrar();
+    cin.ignore();
+    int id;
     cout<<"\nModificar tarea";
+    cout<<"\nIngresar el ID de la tarea a modificar: ";
+    cin>>id;
+    bool paso=buscarId(id);
+    if(paso==true){
+        cin.ignore();
+        //int posicion,
+        string Carnet,Nombre,Descripcion,Materia,Fecha,Hora,Estado;
+        cout<<"\nIngrese el nuevo carnet: ";
+        getline(cin,Carnet);
+        paso=LCverificarCarnet(Carnet);
+        if(paso==true){
+            cout<<"\nIngrese el nuevo nombre de la tarea: ";
+            getline(cin,Nombre);
+            cout<<"\nIngrese la nueva descripción: ";
+            getline(cin,Descripcion);
+            cout<<"\nIngrese la nueva materia: ";
+            getline(cin,Materia);
+            cout<<"\nIngrese el nuevo estado de la tarea: ";
+            getline(cin,Estado);
+            LDModificarTarea(id,Carnet,Nombre,Descripcion,Materia,Estado);
+            manualTareas();
+        }else{
+            cout<<"\nEl carnet que intenta modificar no existe en el programa. Vuelva a intentarlo.";
+            manualTareas();
+        }
+        
+    }else{
+        cout<<"\nEl Id no se encuentra o el espacio indicado está vacío";
+    }
+
 }
 
 void Teliminar()
 {
     //Eliminar tarea
-    cout<<"\nEliminar tarea";
+    cout<<"\nListado de tareas existentes es: ";
+    LDmostrar();
+    int posicion;
+    cout<<"\nIngrese el Id de la tarea a eliminar: ";
+    cin>>posicion;
+    LDeliminar(posicion);
+    manualTareas();
 }
 /*
 *********************************************************************************
@@ -541,9 +605,7 @@ void Tarea::guardarTarea(string Hora,string Carnet,string Nombre,string Descripc
     Tfecha=Fecha;
     Testado=Estado;
 }
-string descripcionErrCarnetE="Error, el Carnet no existe dentro del programa, revise los datos de ingreso. La tarea no se guardará en el programa.";
-string descripcionErrFecha="Error en la fecha, no coincide en el formato YYYY/MM/DD o los valores están fuera de rango. Meses deben ser Julio-Noviembre y un máximo de 30 días.";
-string descripcionErrHora="Error en la hora ingresada. De debe cumplir con el rango entero de 8am a 16pm";
+
 void linealizartareas(string direccion)
 {
     //Crear un arreglo con los datos del programa

@@ -4,10 +4,11 @@ using namespace std;
 
 //Scope
 void LDgenerarLista();
-void LDingresarLinealizado();
-//void LDmostrar();
-//void LDbuscar();
-//void LDeliminar();
+void LDingresarLinealizado(int posicion,string Rcarnet,string Rnombre,string Rdescripcion,string Rmateria,string Rfecha,string Rhora,string Restado);
+void LDmostrar();
+bool buscarId(int id);
+void LDModificarTarea(int posicion,string Rcarnet,string Rnombre,string Rdescripcion,string Rmateria,string Rfecha,string Rhora,string Restado);
+void LDeliminar(int posicion);
 
 struct Nodo{
     int identificador;//secuencial
@@ -37,7 +38,25 @@ void LDgenerarLista(int Ltam){
         ultimo=nuevo;
     }
 }
-
+void LDModificarTarea(int posicion,string Rcarnet,string Rnombre,string Rdescripcion,string Rmateria,string Restado){
+    Nodo* auxiliar=new Nodo();
+    auxiliar=primero;
+    bool encontrar=false;
+    if(primero!=NULL && encontrar!=true){
+        while(auxiliar!=NULL){
+            if(auxiliar->identificador==posicion){
+                if(!(auxiliar->carnet.empty())){
+                    auxiliar->carnet=Rcarnet;
+                    auxiliar->nombre=Rnombre;
+                    auxiliar->descripcion=Rdescripcion;
+                    auxiliar->materia=Rmateria;
+                    auxiliar->estado=Restado;
+                }
+            }
+            auxiliar=auxiliar->siguiente;
+        }
+    }
+}
 void LDingresarLinealizado(int posicion,string Rcarnet,string Rnombre,string Rdescripcion,string Rmateria,string Rfecha,string Rhora,string Restado){
     Nodo* auxiliar=new Nodo();
     auxiliar=primero;
@@ -66,7 +85,7 @@ void LDmostrar(){
     if (primero!=NULL){
         while(auxiliar!=NULL){
             if(!(auxiliar->carnet.empty())){
-                cout<<"\nPos: "<<auxiliar->identificador<<". Carnet: "<<auxiliar->carnet;
+                cout<<"\nPos: "<<auxiliar->identificador<<". Carnet: "<<auxiliar->carnet<<" Nombre: "<<auxiliar->nombre;
             }else{
                 cout<<"\nPos: "<<auxiliar->identificador;
             }
@@ -77,65 +96,44 @@ void LDmostrar(){
     }
 }
 
-/*
-void LDbuscar(){
+bool buscarId(int id){
     Nodo* auxiliar=new Nodo();
     auxiliar=primero;
-    int valor;
-    cout<<"Ingrese el valor a buscar\n";
-    cin>>valor;
     bool encontrar=false;
-    if (primero!=NULL && encontrar!=true){
+    if(primero!=NULL && encontrar!=true){
         while(auxiliar!=NULL){
-            if(auxiliar->dato==valor){
-                encontrar=true;
+            if(auxiliar->identificador==id){
+                if(!(auxiliar->carnet.empty())){
+                    return true;
+                }
             }
             auxiliar=auxiliar->siguiente;
         }
     }
-    if (encontrar){
-        cout<<"Nodo si existe\n";
-    }else{
-        cout<<"Nodo no existe\n";
-    }
+    return false;
 }
 
-
-
-void LDeliminar(){
+void LDeliminar(int posicion){
     Nodo* auxiliar=new Nodo();
     auxiliar=primero;
     Nodo* atras=new Nodo();
     atras=NULL;
-    int valor=0;
-    cout<<"Ingrese el valor a eliminar\n";
-    cin>>valor;
-    bool encontrar=false;
     if (primero!=NULL){
-        while(auxiliar!=NULL && encontrar!=true){
-            if(auxiliar->dato==valor){
-                encontrar=true;
-                if(auxiliar==primero){
-                    primero=primero->siguiente;
-                    primero->anterior=NULL;
-                }else if(auxiliar==ultimo){
-                    atras->siguiente=NULL;
-                    ultimo=atras;
-                }else{
-                    atras->siguiente=auxiliar->siguiente;
-                    auxiliar->siguiente->anterior=atras;
-                }
+        while(auxiliar!=NULL){
+            if(auxiliar->identificador==posicion){
+                auxiliar->carnet="";
+                auxiliar->nombre="";
+                auxiliar->descripcion="";
+                auxiliar->materia="";
+                auxiliar->fecha="";
+                auxiliar->hora="";
+                auxiliar->estado="";
+                cout<<"\nTarea eliminada";
             }
             atras=auxiliar;
             auxiliar=auxiliar->siguiente;
         }
     }else{
-        cout<<"La lista está vacía\n";
-    }
-    if (encontrar){
-        cout<<"Nodo eliminado\n";
-    }else{
-        cout<<"Nodo no existe\n";
+        cout<<"La lista de tareas está vacía\n";
     }
 }
-*/
