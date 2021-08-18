@@ -9,6 +9,10 @@ void LCmodificar(string carnetOriginal,string NCarnet,string NDPI,string NNombre
 void LCeliminar(string carnetEliminar);
 bool LCverificarCarnet(string Rcarnet);
 
+void LCCorregirDPI(string Rcarnet,string Rdpi);
+void LCCorregirCarnet(string Rcarnet,string RcarnetNuevo);
+void LCCorregirCorreo(string Rcarnet,string Rcorreo);
+
 struct NodoCircular{
     string carnet;
     string dpi;
@@ -160,3 +164,72 @@ void LCeliminar(string carnetEliminar){
         cout<<"La lista de estudiantes está vacía\n";
     }
 }
+void LCCorregirDPI(string Rcarnet,string Rdpi){
+    NodoCircular* actual=new NodoCircular();
+    actual=raiz;
+    bool encontrado=false;
+    if(raiz!=NULL){
+        do
+        {
+            /* code */
+            if(actual->carnet==Rcarnet){
+                actual->dpi=Rdpi;
+                cout<<"\nDPI actualizado con éxito.";
+                encontrado=true;
+            }
+            actual=actual->siguienteCircular;
+        } while (actual!=raiz && encontrado!=true);
+        if(!encontrado){
+            cout<<"Estudiante no encontrado\n";
+        }
+    }else{
+        cout<<"\nLa lista se encuentra vacía\n";
+    }
+}
+
+void LCCorregirCarnet(string Rcarnet,string RcarnetNuevo){
+    NodoCircular* actual=new NodoCircular();
+    actual=raiz;
+    bool encontrado=false;
+    if(raiz!=NULL){
+        do
+        {
+            /* code */
+            if(actual->carnet==Rcarnet){
+                actual->carnet=RcarnetNuevo;
+                cout<<"\nCarnet actualizado con éxito.";
+                encontrado=true;
+            }
+            actual=actual->siguienteCircular;
+        } while (actual!=raiz && encontrado!=true);
+        if(!encontrado){
+            cout<<"Estudiante no encontrado\n";
+        }
+    }else{
+        cout<<"\nLa lista se encuentra vacía\n";
+    }
+}
+
+void LCCorregirCorreo(string Rcarnet,string Rcorreo){
+    NodoCircular* actual=new NodoCircular();
+    actual=raiz;
+    bool encontrado=false;
+    if(raiz!=NULL){
+        do
+        {
+            /* code */
+            if(actual->carnet==Rcarnet){
+                actual->correo=Rcorreo;
+                cout<<"\nCorreo actualizado con éxito.";
+                encontrado=true;
+            }
+            actual=actual->siguienteCircular;
+        } while (actual!=raiz && encontrado!=true);
+        if(!encontrado){
+            cout<<"Estudiante no encontrado\n";
+        }
+    }else{
+        cout<<"\nLa lista se encuentra vacía\n";
+    }
+}
+

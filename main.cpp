@@ -23,6 +23,8 @@ void manualEstudiantes();
 void manualTareas();
 void linealizartareas(string direccion);
 void menudeErrores();
+void corregirEstudiante(int Rid,int Rclase,string idEstu);
+void corregirTarea(int Rid,int Rclase, string idTar);
 
 //Metodos para capturar errores
 bool errorFecha(string fecha);
@@ -221,7 +223,146 @@ void cargaestudiantes(string direccion)
 *********************************************************************************
 */
 void menudeErrores(){
+    int opcion=0;
     cout<<"\nMenu de errores:";
+    cout<<"\n1. Mostrar la cola de errores";
+    cout<<"\n2. Seleccionar un error a corregir";
+    cout<<"\n3. Volver\n";
+    cin>>opcion;
+    if(opcion==1){
+        Colamostrar();
+    }else if(opcion==2){
+        cout<<"\nIngrese el ID del error a corregir: ";
+        cin>>opcion;
+        bool paso=ColaVerificarId(opcion);
+        if(paso==true){
+            //Continue
+            int Rclase=ColaDevClase(opcion);
+            string identificador=ColaDevRidTarEst(opcion);
+            if(Rclase>2){
+                corregirEstudiante(opcion,Rclase,identificador);
+            }else{
+                corregirTarea(opcion,Rclase,identificador);
+            }
+        }else{
+            cout<<"\nIngresó un codigo de error inválido, vuela a intentarlo";
+            menudeErrores();
+        }
+    }
+    menudeErrores();
+}
+void corregirEstudiante(int Rid,int Rclase,string idEstu){
+    cin.ignore();
+    string cadena="";
+    bool paso=false;
+    if(Rclase==3){
+        cout<<"\nIngrese el DPI bajo los requerimientos del sistema:  ";
+        getline(cin,cadena);
+        paso=errorDpi(cadena);
+        if(paso==true){
+            //Continue..
+            LCCorregirDPI(idEstu,cadena);
+            Colaeliminar(Rid);
+        }else{
+            cout<<"\nEl DPI no cumple con los requerimientos, vuela a intentarlo.";
+            corregirEstudiante(Rid,Rclase,idEstu);
+        }
+    }else if(Rclase==4){
+        cout<<"\nIngrese el Carnet bajo los requerimientos del sistema:  ";
+        getline(cin,cadena);
+        paso=errorCarnet(cadena);
+        if(paso==true){
+            //Continue..
+            LCCorregirCarnet(idEstu,cadena);
+            Colaeliminar(Rid);
+        }else{
+            cout<<"\nEl Carnet no cumple con los requerimientos, vuela a intentarlo.";
+            corregirEstudiante(Rid,Rclase,idEstu);
+        }
+    }else if(Rclase==5){
+        cout<<"\nIngrese el Correo bajo los requerimientos del sistema:  ";
+        getline(cin,cadena);
+        paso=errorCorreo(cadena);
+        if(paso==true){
+            //Continue..
+            LCCorregirCorreo(idEstu,cadena);
+            Colaeliminar(Rid);
+        }else{
+            cout<<"\nEl correo no cumple con los requerimientos, vuela a intentarlo.";
+            corregirEstudiante(Rid,Rclase,idEstu);
+        }
+    }
+}
+
+void corregirTarea(int Rid,int Rclase, string idTar){
+    bool paso=false;
+    //Voy a pedir: carnet,nombre,descripcion,materia,estado 
+    string carnet,nombre,descripcion,materia,estado;
+    carnet=getCarnetTareaErrores(Rid);
+    nombre=getNombreTareaErrores(Rid);
+    descripcion=getDescripcionTareaErrores(Rid);
+    materia=getMateriaTareaErrores(Rid);
+    estado=getEstadoTareaErrores(Rid);
+
+    cin.ignore();
+    string mes,dia,fecha,hora;
+    if(Rclase==1){
+        cout<<"\nIngrese el mes: ";
+        getline(cin,mes);
+        cout<<"\nIngrese el día: ";
+        getline(cin,dia);
+        cout<<"\nIngrese la fecha en formato YYYY/MM/DD: ";
+        getline(cin,fecha);
+        paso=errorFecha(fecha);
+        if(paso==true){
+            //Hacer la modificacion
+            modTareaErroresFecha(Rid,mes,dia,fecha);
+            //Eliminar el error de la cola
+            Colaeliminar(Rid);
+            //Verificar la segunda chance de error
+            hora=getHoraTareaErrores(Rid);
+            paso=errorHora(hora);
+            if(paso==true){
+                //Hora correcta. Ya tengo mes, dia, fecha y hora
+                eliminarTareaErrores(Rid);
+                int posicionLinealizado=(atoi(dia.c_str())*maxdia*(maxhora-7))+(atoi(mes.c_str())*(maxhora-7))+atoi(hora.c_str());          
+                LDingresarLinealizado(posicionLinealizado,carnet,nombre,descripcion,materia,fecha,hora,estado);
+            }else{
+                cout<<"\nError corregido con éxito.";
+                menudeErrores();
+            }
+        }else{
+            cout<<"\nLa fecha ingresada es incorrecta, vuelva a intentarlo.";
+            corregirTarea(Rid,Rclase,idTar);
+        }
+    }else if(Rclase==2){
+        cout<<"\nIngrese la hora (un numero entero): ";
+        getline(cin,hora);
+        paso=errorHora(hora);
+        if(paso==true){
+            //Hacer la modificacion-------------------->
+            modificarTareaErroresHora(Rid, hora);
+            //Eliminar el error de la cola
+            Colaeliminar(Rid);
+            //Verificar la segunda chance de error
+            mes=getMesTareaErores(Rid);
+            dia=getDiaTareaErores(Rid);
+            fecha=getFechaTareaErrores(Rid);
+            paso=errorFecha(fecha);
+            if(paso==true){
+                //Fecha correcta. Ya tengo mes, dia, fecha y hora
+                eliminarTareaErrores(Rid);
+                int posicionLinealizado=(atoi(dia.c_str())*maxdia*(maxhora-7))+(atoi(mes.c_str())*(maxhora-7))+atoi(hora.c_str());          
+                LDingresarLinealizado(posicionLinealizado,carnet,nombre,descripcion,materia,fecha,hora,estado);
+            }else{
+                cout<<"\nError corregido con éxito.";
+                menudeErrores();
+            }
+        }else{
+            cout<<"\nLa hora ingresada es incorrecta y no cumple con los requisitos. Vuelva a intentarlo";
+            corregirTarea(Rid,Rclase,idTar);
+        }
+    }
 }
 
 /*
@@ -232,6 +373,17 @@ void menudeErrores(){
 void reportes()
 {
     //Reportes del programa
+    cin.ignore();
+    int opcion=0;
+    cout<<"\nReportes del programa.";
+    cout<<"\n1. Lista general de estudiantes";
+    cout<<"\n2. Linealización de tareas";
+    cout<<"\n3. Búsqueda en estructura";
+    cout<<"\n4. Búsqueda de posición en la lista linealizada";
+    cout<<"\n5. Cola de errores";
+    cout<<"\n6. Código generado";
+    cout<<"\nIngrese una opción: ";
+    cin>>opcion;
 }
 
 /*

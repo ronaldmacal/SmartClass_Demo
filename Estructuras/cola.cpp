@@ -4,8 +4,10 @@ using namespace std;
 //Scope
 void insertarError(int Rid,int Rclase, string Rtipo,string RidTarEst,string Rdescripcion);
 void Colamostrar();
-//void Colabuscar();
-//void Colaeliminar();
+void Colaeliminar(int Rid);
+bool ColaVerificarId(int Rid);
+int ColaDevClase(int Rid);
+string ColaDevRidTarEst(int Rid);
 
 struct NodoC{
     int id;
@@ -55,43 +57,15 @@ void Colamostrar(){
     }
 }
 
-/*
-void Colabuscar(){
-    int buscar;
-    cout<<"Ingrese el valor a buscar: ";
-    cin>>buscar;
-    NodoC* auxiliar=new NodoC();
-    auxiliar=primeroC;
+void Colaeliminar(int Rid){
     bool encontrar=false;
-    if(primeroC!=NULL){
-        while(auxiliar!=NULL && encontrar!=true){
-            if(auxiliar->data==buscar){
-                encontrar=true;
-            }
-            auxiliar=auxiliar->siguienteC;
-        }
-    }else{
-        cout<<"La cola actual no tiene elementos\n";
-    }
-    if(encontrar){
-        cout<<"Nodo encontrado con éxito\n";
-    }else{
-        cout<<"Nodo no encontrado, ingrese otro valor\n";
-    }
-}
-
-void Colaeliminar(){
-    int buscar;
-    bool encontrar=false;
-    cout<<"Ingrese el valor a eliminar: ";
-    cin>>buscar;
     NodoC* anterior=new NodoC();
     anterior=NULL;
     NodoC* auxiliar=new NodoC();
     auxiliar=primeroC;
     if(primeroC!=NULL){
         while(auxiliar!=NULL && encontrar!=true){
-            if(auxiliar->data==buscar){
+            if(auxiliar->id==Rid){
                 //Nodo encontrado
                 encontrar=true;
                 if(auxiliar==primeroC){
@@ -107,11 +81,70 @@ void Colaeliminar(){
             auxiliar=auxiliar->siguienteC;
         }
     }else{
-        cout<<"La cola actual no tiene elementos\n";
+        cout<<"La cola de errores actual no tiene elementos\n";
     }
     if(encontrar){
-        cout<<"El nodo fue eliminado con éxito\n";
-    }else{
-        cout<<"Nodo no encontrado, no fue eliminado\n";
+        cout<<"El error fue eliminado con éxito\n";
     }
-}*/
+}
+bool ColaVerificarId(int Rid){
+    bool encontrar=false;
+    NodoC* anterior=new NodoC();
+    anterior=NULL;
+    NodoC* auxiliar=new NodoC();
+    auxiliar=primeroC;
+    if(primeroC!=NULL){
+        while(auxiliar!=NULL && encontrar!=true){
+            if(auxiliar->id==Rid){
+                //Nodo encontrado
+                return true;
+            }
+            auxiliar=auxiliar->siguienteC;
+        }
+    }else{
+        cout<<"La cola de errores actual no tiene elementos\n";
+    }
+    return false;
+}
+
+int ColaDevClase(int Rid){
+    int valor=0;
+    bool encontrar=false;
+    NodoC* anterior=new NodoC();
+    anterior=NULL;
+    NodoC* auxiliar=new NodoC();
+    auxiliar=primeroC;
+    if(primeroC!=NULL){
+        while(auxiliar!=NULL && encontrar!=true){
+            if(auxiliar->id==Rid){
+                //Nodo encontrado
+                valor=auxiliar->clase;
+            }
+            auxiliar=auxiliar->siguienteC;
+        }
+    }else{
+        cout<<"La cola de errores actual no tiene elementos\n";
+    }
+    return valor;
+}
+
+string ColaDevRidTarEst(int Rid){
+    string valor="";
+    bool encontrar=false;
+    NodoC* anterior=new NodoC();
+    anterior=NULL;
+    NodoC* auxiliar=new NodoC();
+    auxiliar=primeroC;
+    if(primeroC!=NULL){
+        while(auxiliar!=NULL && encontrar!=true){
+            if(auxiliar->id==Rid){
+                //Nodo encontrado
+                valor=auxiliar->idTarEst;
+            }
+            auxiliar=auxiliar->siguienteC;
+        }
+    }else{
+        cout<<"La cola de errores actual no tiene elementos\n";
+    }
+    return valor;
+}
