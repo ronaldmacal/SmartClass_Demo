@@ -64,7 +64,9 @@ void Teliminar();
 
 int main()
 {
-    menuprincipal();
+    //menuprincipal();
+    cargaestudiantes("Estudiantes.csv");
+    reporte1();
     return 0;
 }
 
@@ -393,11 +395,13 @@ void reportes()
 
 }
 void reporte1(){
-    cout<<"\nReporte 1";
+    cout<<"\nReporte 1: Lista de estudiantes";
+    
 }
 
 void reporte2(){
-    cout<<"\nReporte 2";
+    cout<<"\nReporte 2: Lista de tareas linealizadas";
+    
 }
 
 void reporte3(){

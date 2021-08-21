@@ -26,6 +26,9 @@ struct NodoCircular{
     NodoCircular* anteriorCircular;
 }*raiz,*tope;
 
+//Metodo para generar el .dot
+
+
 //Devuelve 1: si existe, 0: no existe en la lista
 bool LCverificarCarnet(string Rcarnet){
     NodoCircular* actual=new NodoCircular();
