@@ -9,6 +9,7 @@ void LDmostrar();
 bool buscarId(int id);
 void LDModificarTarea(int posicion,string Rcarnet,string Rnombre,string Rdescripcion,string Rmateria,string Rfecha,string Rhora,string Restado);
 void LDeliminar(int posicion);
+void LDreporte3(int posicion);
 
 struct Nodo{
     int identificador;//secuencial
@@ -135,5 +136,32 @@ void LDeliminar(int posicion){
         }
     }else{
         cout<<"La lista de tareas está vacía\n";
+    }
+}
+
+void LDreporte3(int posicion){
+    Nodo* auxiliar=new Nodo();
+    auxiliar=primero;
+    bool encontrar=false;
+    if(primero!=NULL && encontrar!=true){
+        while(auxiliar!=NULL){
+            if(auxiliar->identificador==posicion){
+                if(!(auxiliar->carnet.empty())){
+                    cout<<"\nReporte 3:";
+                    cout<<"\nCarnet: "<<auxiliar->carnet;
+                    cout<<"\nNombre: "<<auxiliar->nombre;
+                    cout<<"\nDescripcion: "<<auxiliar->descripcion;
+                    cout<<"\nMateria: "<<auxiliar->materia;
+                    cout<<"\nFecha: "<<auxiliar->fecha;
+                    cout<<"\nHora: "<<auxiliar->hora;
+                    cout<<"\nEstado: "<<auxiliar->estado;
+                    encontrar=true;
+                }
+            }
+            auxiliar=auxiliar->siguiente;
+        }
+    }
+    if(encontrar==false){
+        cout<<"\nNo existe la tarea dentro de la lista linealizada. Vuelva a intentarlo";
     }
 }

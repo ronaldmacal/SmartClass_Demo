@@ -33,6 +33,14 @@ bool errorDpi(string dpi);
 bool errorCarnet(string carnet);
 bool errorCorreo(string correo);
 
+//Metodos de reporte
+void reporte1();
+void reporte2();
+void reporte3();
+void reporte4();
+void reporte5();
+void reporte6();
+
 //Variables utilizadas para guardar los valores dimensionales del cubo
 int maxmes = 0;
 int maxdia = 0;
@@ -79,8 +87,6 @@ void menuprincipal()
     int opcion;
     cin >> opcion;
 
-    //Switch para analizar la opcion ingresada
-    
     string direccion;
     if(opcion==1){
         cin.ignore();
@@ -117,16 +123,12 @@ void cargatareas(string direccion)
     //Ingreso de tareas directamente desde un archivo CSV + linealización
     try
     {
-        /* code */
         //Primera lectura para capturar el tamaño del cubo (arreglo inicial)
         ifstream lectura(direccion);
         string lineacap;
         char delimitador = ',';
         getline(lectura, lineacap);
-        while (getline(lectura, lineacap))
-        {
-        }
-        {
+        while (getline(lectura, lineacap)){
             stringstream stream(lineacap);
             string m, d, h;
             int auxm, auxd, auxh;
@@ -149,6 +151,7 @@ void cargatareas(string direccion)
                 maxhora = auxh;
             }
         }
+        cout<<"\nMax Mes: "<<maxmes<<". Max Dia: "<<maxdia<<". Max Hora: "<<maxhora;
         lectura.close();
         //Metodo encargado de linealizar las tareas
         linealizartareas(direccion);
@@ -248,6 +251,8 @@ void menudeErrores(){
             cout<<"\nIngresó un codigo de error inválido, vuela a intentarlo";
             menudeErrores();
         }
+    }else if(opcion==3){
+        menuprincipal();
     }
     menudeErrores();
 }
@@ -292,6 +297,7 @@ void corregirEstudiante(int Rid,int Rclase,string idEstu){
             corregirEstudiante(Rid,Rclase,idEstu);
         }
     }
+    menudeErrores();
 }
 
 void corregirTarea(int Rid,int Rclase, string idTar){
@@ -384,6 +390,50 @@ void reportes()
     cout<<"\n6. Código generado";
     cout<<"\nIngrese una opción: ";
     cin>>opcion;
+
+}
+void reporte1(){
+    cout<<"\nReporte 1";
+}
+
+void reporte2(){
+    cout<<"\nReporte 2";
+}
+
+void reporte3(){
+    int mes,dia,hora,posicion;
+    cout<<"\nReporte 3: Busqueda en estructura Linealizada.";
+    cout<<"\nIngrese el mes: ";
+    cin>>mes;
+    cout<<"\nIngrese el dia: ";
+    cin>>dia;
+    cout<<"\nIngrese la hora: ";
+    cin>>hora;
+    posicion=(dia*maxdia*(maxhora-7))+(mes*(maxhora-7))+hora; 
+    LDreporte3(posicion);
+    reportes();
+}
+
+void reporte4(){
+    cout<<"\nReporte 4: Búsqueda en posición en lista linealizada";
+    int mes,dia,hora,posicion;
+    cout<<"\nIngrese el mes: ";
+    cin>>mes;
+    cout<<"\nIngrese el dia: ";
+    cin>>dia;
+    cout<<"\nIngrese la hora: ";
+    cin>>hora;
+    posicion=(dia*maxdia*(maxhora-7))+(mes*(maxhora-7))+hora; 
+    cout<<"\nLa posición dentro de la lista es de: "<<posicion<<"\n\n";
+    reportes();
+}
+
+void reporte5(){
+    cout<<"\nReporte 5";
+}
+
+void reporte6(){
+    cout<<"\nReporte 6";
 }
 
 /*
@@ -629,7 +679,7 @@ void Tingresar()
         getline(cin,Mes);
         cout<<"\nIngrese el día de la tarea: ";
         getline(cin,Dia);
-        cout<<"\nIngrese la fecha de la tarea en formato YYYY/MM/DD";
+        cout<<"\nIngrese la fecha de la tarea en formato YYYY/MM/DD: ";
         getline(cin,Fecha);
         cout<<"\nIngrese nombre de la tarea: ";
         getline(cin,Nombre);
@@ -646,23 +696,24 @@ void Tingresar()
             LDingresarLinealizado(posicionLinealizado,Carnet,Nombre,Descripcion,Materia,Fecha,Hora,Estado);
         }else{
             //Guardar una vez en la lista de tareas con error
-            //int posicion,string Rmes, string Rdia, string Rcarnet,string Rnombre,string Rdescripcion,string Rmateria,string Rfecha,string Rhora,string Restado
             insertarTareaErrores(contadorTareasconError,Mes,Dia,Carnet,Nombre,Descripcion,Materia,Fecha,Hora,Estado);
-            //insertarError(int Rid, int Rclase,string Rtipo,string RidTarEst,string Rdescripcion)
             cout<<"\nExisten errores en los datos ingresados, dirijase al menú de errores para corregirlos.";
             if(phora==false && pfecha==false){
                 //Generar ambos tickets de error
-                insertarError(contadorTareasconError,2,"Tarea",to_string(contadorTareasconError),descripcionErrHora);
-                contadorTareasconError++;
-                insertarError(contadorTareasconError,1,"Tarea",to_string(contadorTareasconError),descripcionErrFecha);
+                insertarError(contadorError,2,"Tarea",to_string(contadorTareasconError),descripcionErrHora);
+                contadorError++;
+                insertarError(contadorError,1,"Tarea",to_string(contadorTareasconError),descripcionErrFecha);
+                contadorError++;
                 contadorTareasconError++;
             }else if(pfecha==false){
                 //Guardar ticket fecha
-                insertarError(contadorTareasconError,1,"Tarea",to_string(contadorTareasconError),descripcionErrFecha);
+                insertarError(contadorError,1,"Tarea",to_string(contadorTareasconError),descripcionErrFecha);
+                contadorError++;
                 contadorTareasconError++;
             }else if(phora==false){
                 //Guardar ticket hora
-                insertarError(contadorTareasconError,2,"Tarea",to_string(contadorTareasconError),descripcionErrHora);
+                insertarError(contadorError,2,"Tarea",to_string(contadorTareasconError),descripcionErrHora);
+                contadorError++;
                 contadorTareasconError++;
             }
         }
@@ -670,6 +721,7 @@ void Tingresar()
         cout<<"\nEl carnet no existe en el programa. Ingrese ese nuevo estudiante o verifique los datos.";
         manualTareas();
     }
+    manualEstudiantes();
 }
 
 void Tmodificar()
@@ -709,7 +761,7 @@ void Tmodificar()
     }else{
         cout<<"\nEl Id no se encuentra o el espacio indicado está vacío";
     }
-
+    manualEstudiantes();
 }
 
 void Teliminar()
@@ -721,7 +773,7 @@ void Teliminar()
     cout<<"\nIngrese el Id de la tarea a eliminar: ";
     cin>>posicion;
     LDeliminar(posicion);
-    manualTareas();
+    manualEstudiantes();
 }
 /*
 *********************************************************************************
@@ -732,6 +784,8 @@ class Tarea
 {
 public:
     int Tid;
+    string Tmes;
+    string Tdia;
     string Tcarnet;
     string Tnombre;
     string Tdescripcion;
@@ -740,15 +794,17 @@ public:
     string Thora;
     string Testado;
 
-    void guardarTarea(string Hora,string Carnet,string Nombre,string Descripcion,string Materia,string Fecha,string Estado); //
+    void guardarTarea(string Mes,string Dia,string Hora,string Carnet,string Nombre,string Descripcion,string Materia,string Fecha,string Estado); //
     void vacio(); //Metodo que llena los espacios vacios en -1
 };
 void Tarea::vacio(){
     Tid=-1;
 }
-void Tarea::guardarTarea(string Hora,string Carnet,string Nombre,string Descripcion,string Materia,string Fecha,string Estado)
+void Tarea::guardarTarea(string Mes, string Dia, string Hora,string Carnet,string Nombre,string Descripcion,string Materia,string Fecha,string Estado)
 {
     Tid=1;
+    Tmes=Mes;
+    Tdia=Dia;
     Tcarnet=Carnet;
     Thora=Hora;
     Tnombre=Nombre;
@@ -766,13 +822,10 @@ void linealizartareas(string direccion)
     //Recorrer el arreglo para poner todos los datos como vacíos (-1)
     for (int i = 0; i < maxdia; i++)
     {
-        /* code */
         for (int j = 0; j< (maxmes-6); j++)
         {
-            /* code */
             for (int w = 0; w < (maxhora-7); w++)
             {
-                /* code */
                 cuboDatos[i][j][w].vacio();
             }
         }
@@ -782,7 +835,6 @@ void linealizartareas(string direccion)
     int tamalista=maxdia*(maxmes-6)*(maxhora-7);
     for (int i = 0; i < tamalista; i++)
     {
-        /* code */
         LDgenerarLista(i);
     }
     cout<<"\nLista generada con éxito. Tamaño: "<<tamalista<<"\n";
@@ -814,21 +866,21 @@ void linealizartareas(string direccion)
         int RealDia=(atoi(Dia.c_str()))-1;
         int RealMes=(atoi(Mes.c_str()))-7;
         int RealHora=(atoi(Hora.c_str()))-8;
-        cuboDatos[RealDia][RealMes][RealHora].guardarTarea(Hora,Carnet,Nombre,Descripcion,Materia,Fecha,Estado);
+        cuboDatos[RealDia][RealMes][RealHora].guardarTarea(Mes,Dia,Hora,Carnet,Nombre,Descripcion,Materia,Fecha,Estado);
     }
     archivo.close();
 
     //Recorrer el arreglo cuboDatos e ir linealizando donde si se encuentren datos.
     int posicionLinealizado=0;
+    //1era Dimensión: Días
     for (int i = 0; i < maxdia; i++)
     {
-        /* code */
+        //Segunda Dimensión: Meses
         for (int j = 0; j< (maxmes-6); j++)
         {
-            /* code */
+            //Tercera Dimensión: Horas
             for (int w = 0; w < (maxhora-7); w++)
             {
-                /* code */
                 if(cuboDatos[i][j][w].Tid==1){
                     posicionLinealizado=(j*maxdia*(maxhora-7))+(i*(maxhora-7))+w;
                     //Captura de errores en las tareas.
@@ -837,18 +889,27 @@ void linealizartareas(string direccion)
                         bool errfecha=errorFecha(cuboDatos[i][j][w].Tfecha);
                         bool errhora=errorHora(cuboDatos[i][j][w].Thora);
 
+                        //********************************************************************
                         //Hay que hacer modificaciones de lista cambiable
-                        /*if(errfecha==false)
-                        {
-                            insertarError(contadorError,,"Tarea",to_string(posicionLinealizado),descripcionErrFecha);
+                        if(errfecha==false && errhora==false){
+                            insertarError(contadorError,1,"Tarea",to_string(contadorTareasconError),descripcionErrFecha);
+                            contadorError++;
+                            insertarError(contadorError,2,"Tarea",to_string(contadorTareasconError),descripcionErrHora);
+                            contadorError++;
+                        }else if(errhora==false){
+                            insertarError(contadorError,2,"Tarea",to_string(contadorTareasconError),descripcionErrHora);
+                            contadorError++;
+                        }else if(errfecha==false){
+                            insertarError(contadorError,1,"Tarea",to_string(contadorTareasconError),descripcionErrFecha);
                             contadorError++;
                         }
-                        if(errhora==false)
-                        {
-                            insertarError(contadorError,"Tarea",to_string(posicionLinealizado),descripcionErrHora);
-                            contadorError++;
-                        }*/
-                        LDingresarLinealizado(posicionLinealizado,cuboDatos[i][j][w].Tcarnet,cuboDatos[i][j][w].Tnombre,cuboDatos[i][j][w].Tdescripcion,cuboDatos[i][j][w].Tmateria,cuboDatos[i][j][w].Tfecha,cuboDatos[i][j][w].Thora,cuboDatos[i][j][w].Testado);
+                        //********************************************************************
+                        if(errfecha==true && errhora==true){
+                            LDingresarLinealizado(posicionLinealizado,cuboDatos[i][j][w].Tcarnet,cuboDatos[i][j][w].Tnombre,cuboDatos[i][j][w].Tdescripcion,cuboDatos[i][j][w].Tmateria,cuboDatos[i][j][w].Tfecha,cuboDatos[i][j][w].Thora,cuboDatos[i][j][w].Testado);
+                        }else{
+                            insertarTareaErrores(contadorTareasconError,cuboDatos[i][j][w].Tmes,cuboDatos[i][j][w].Tdia,cuboDatos[i][j][w].Tcarnet,cuboDatos[i][j][w].Tnombre,cuboDatos[i][j][w].Tdescripcion,cuboDatos[i][j][w].Tmateria,cuboDatos[i][j][w].Tfecha,cuboDatos[i][j][w].Thora,cuboDatos[i][j][w].Testado);
+                            contadorTareasconError++;
+                        }
                     }else{
                         cout<<"\n"<<descripcionErrCarnetE;
                     }
