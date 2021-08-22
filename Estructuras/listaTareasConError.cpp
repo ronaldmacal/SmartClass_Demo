@@ -78,7 +78,7 @@ void mostrarTareaErrores(){
             auxiliar=auxiliar->siguienteE;
         }
     }else{
-        cout<<"La lista de tareas se encuentra vacía\n";
+        cout<<"La lista de tareas se encuentra vacia\n";
     }
 }
 
@@ -105,7 +105,7 @@ void eliminarTareaErrores(int Rid){
             auxiliar=auxiliar->siguienteE;
         }
     }else{
-        cout<<"La lista de tareas está vacía\n";
+        cout<<"La lista de tareas esta vacia\n";
     }
 }
 

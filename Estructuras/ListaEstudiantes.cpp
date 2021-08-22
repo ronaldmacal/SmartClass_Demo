@@ -1,5 +1,7 @@
 #include <iostream>
 #include<cstring>
+#include <sstream>
+#include <fstream>
 using namespace std;
 
 //Scope
@@ -13,6 +15,10 @@ void LCCorregirDPI(string Rcarnet,string Rdpi);
 void LCCorregirCarnet(string Rcarnet,string RcarnetNuevo);
 void LCCorregirCorreo(string Rcarnet,string Rcorreo);
 
+//Reportes
+string reporteEstudiantesTXT();
+void graficarEstudiantes();
+
 struct NodoCircular{
     string carnet;
     string dpi;
@@ -25,9 +31,68 @@ struct NodoCircular{
     NodoCircular* siguienteCircular;
     NodoCircular* anteriorCircular;
 }*raiz,*tope;
+//Metodos para el reporte 
+string reporteEstudiantesTXT(){
+    string cadena="";
+    NodoCircular* actual=new NodoCircular();
+    actual=raiz;
+    if(raiz!=NULL){
+        do
+        {
+            /* code */
+            cadena+="\t¿element type=\"user\"?\n";
+            cadena+="\t\t¿item Carnet = \""+actual->carnet+"\" $?\n";
+            cadena+="\t\t¿item DPI = \""+actual->dpi+"\" $?\n";
+            cadena+="\t\t¿item Nombre = \""+actual->nombre+"\" $?\n";
+            cadena+="\t\t¿item Carrera = \""+actual->carrera+"\" $?\n";
+            cadena+="\t\t¿item Password = \""+actual->contrasena+"\" $?\n";
+            cadena+="\t\t¿item Creditos = \""+to_string(actual->creditos)+"\" $?\n";
+            cadena+="\t\t¿item Edad = \""+to_string(actual->edad)+"\" $?\n";
+            cadena+="\t¿$element?\n";
+            actual=actual->siguienteCircular;
+        } while (actual!=raiz);
+    }else{
+        cout<<"Lista vacia\n";
+    }
+    return cadena;
+}
 
 //Metodo para generar el .dot
+void graficarEstudiantes(){
+    string acum = "digraph G{\n rankdir = TB; \nnode [shape=box]; \ncompound=true; \n";
+    string nodos = "";
+    string conexiones = "";
+    NodoCircular* actual=new NodoCircular();
+    actual=raiz;
+    if(raiz!=NULL){
+        while (actual->siguienteCircular!=raiz)
+        {
+            /* code */
+            nodos+= "\"" + actual->carnet + "\"" + "[label=\"" + actual->carnet+ "\n"+actual->nombre+ "\"];\n";
+            conexiones+="\"" +  actual->carnet + "\" -> \"" + actual->siguienteCircular->carnet + "\"[dir=\"both\"];\n";
+            actual=actual->siguienteCircular;
+        }
+    }else{
+        cout<<"Lista vacia\n";
+    }   
+    nodos += "\"" + actual->carnet + "\"" + "[label=\"" + actual->carnet+ "\n"+actual->nombre+ "\"];\n";
+    conexiones+="\"" +  actual->carnet + "\" -> \"" + actual->siguienteCircular->carnet + "\"[dir=\"both\"];\n";
+    acum += nodos + conexiones + "\n}\n";
+    
+    //Crear el archivo
+    string filename("estudiantes.dot");
+    fstream file_out;
 
+    file_out.open(filename, std::ios_base::out);
+    if(!file_out.is_open()){
+        cout << "Error al abrir el archivo: " <<filename << '\n';
+    }else{
+        file_out << acum << endl;
+        cout << "La escritura fue un exito" << endl;
+    }
+    string cmd = "dot -Tpng estudiantes.dot -o estudiantes.png";
+    system(cmd.c_str());  
+}
 
 //Devuelve 1: si existe, 0: no existe en la lista
 bool LCverificarCarnet(string Rcarnet){
@@ -44,7 +109,7 @@ bool LCverificarCarnet(string Rcarnet){
         } while (actual!=raiz);
         return false;
     }else{
-        cout<<"\nLista vacía";
+        cout<<"\nLista vacia";
     }
     return false;
 }
@@ -97,7 +162,7 @@ void LCmostrar(){
         } while (actual!=raiz);
         cout<<"\n\n";
     }else{
-        cout<<"Lista vacía\n";
+        cout<<"Lista vacia\n";
     }
 }
 
@@ -126,7 +191,7 @@ void LCmodificar(string carnetOriginal,string NCarnet,string NDPI,string NNombre
             cout<<"Estudiante no encontrado\n";
         }
     }else{
-        cout<<"\nLa lista se encuentra vacía\n";
+        cout<<"\nLa lista se encuentra vacia\n";
     }
 }
 
@@ -164,7 +229,7 @@ void LCeliminar(string carnetEliminar){
             cout<<"Estudiante no encontrado vuelva a intentarlo.\n";
         }
     }else{
-        cout<<"La lista de estudiantes está vacía\n";
+        cout<<"La lista de estudiantes esta vacia\n";
     }
 }
 void LCCorregirDPI(string Rcarnet,string Rdpi){
@@ -177,7 +242,7 @@ void LCCorregirDPI(string Rcarnet,string Rdpi){
             /* code */
             if(actual->carnet==Rcarnet){
                 actual->dpi=Rdpi;
-                cout<<"\nDPI actualizado con éxito.";
+                cout<<"\nDPI actualizado con exito.";
                 encontrado=true;
             }
             actual=actual->siguienteCircular;
@@ -186,7 +251,7 @@ void LCCorregirDPI(string Rcarnet,string Rdpi){
             cout<<"Estudiante no encontrado\n";
         }
     }else{
-        cout<<"\nLa lista se encuentra vacía\n";
+        cout<<"\nLa lista se encuentra vacia\n";
     }
 }
 
@@ -200,7 +265,7 @@ void LCCorregirCarnet(string Rcarnet,string RcarnetNuevo){
             /* code */
             if(actual->carnet==Rcarnet){
                 actual->carnet=RcarnetNuevo;
-                cout<<"\nCarnet actualizado con éxito.";
+                cout<<"\nCarnet actualizado con exito.";
                 encontrado=true;
             }
             actual=actual->siguienteCircular;
@@ -209,7 +274,7 @@ void LCCorregirCarnet(string Rcarnet,string RcarnetNuevo){
             cout<<"Estudiante no encontrado\n";
         }
     }else{
-        cout<<"\nLa lista se encuentra vacía\n";
+        cout<<"\nLa lista se encuentra vacia\n";
     }
 }
 
@@ -223,7 +288,7 @@ void LCCorregirCorreo(string Rcarnet,string Rcorreo){
             /* code */
             if(actual->carnet==Rcarnet){
                 actual->correo=Rcorreo;
-                cout<<"\nCorreo actualizado con éxito.";
+                cout<<"\nCorreo actualizado con exito.";
                 encontrado=true;
             }
             actual=actual->siguienteCircular;
@@ -232,7 +297,7 @@ void LCCorregirCorreo(string Rcarnet,string Rcorreo){
             cout<<"Estudiante no encontrado\n";
         }
     }else{
-        cout<<"\nLa lista se encuentra vacía\n";
+        cout<<"\nLa lista se encuentra vacia\n";
     }
 }
 

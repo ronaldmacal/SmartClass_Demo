@@ -8,7 +8,7 @@ void Colaeliminar(int Rid);
 bool ColaVerificarId(int Rid);
 int ColaDevClase(int Rid);
 string ColaDevRidTarEst(int Rid);
-
+void graficarErrores();
 struct NodoC{
     int id;
     int clase;
@@ -18,7 +18,40 @@ struct NodoC{
     NodoC* siguienteC;
 }*primeroC,*ultimoC; 
 
+void graficarErrores(){
+    string acum = "digraph G{\n rankdir = TB; \nnode [shape=box]; \ncompound=true; \n";
+    string nodos = "";
+    string conexiones = "";
+    NodoC* auxiliar=new NodoC();
+    auxiliar=primeroC;
+    if(primeroC!=NULL){
+        while(auxiliar!=NULL){
+            nodos+= "\"" + to_string(auxiliar->id) + "\"" + "[label=\"" + auxiliar->idTarEst+ "\n"+auxiliar->tipo+ "\"];\n";
+            if(auxiliar->siguienteC!=NULL){
+                //Ultimo
+                conexiones+="\"" + to_string(auxiliar->id) + "\" -> \"" + to_string(auxiliar->siguienteC->id) + "\"[dir=\"both\"];\n";
+            }
+            auxiliar=auxiliar->siguienteC;
+        }
+    }else{
+        cout<<endl<<"La Cola de errores se encuentra vacia.";
+    }
+    acum += nodos + conexiones + "\n}\n";
 
+    //Crear el archivo
+    string filename("errores.dot");
+    fstream file_out;
+
+    file_out.open(filename, std::ios_base::out);
+    if(!file_out.is_open()){
+        cout << "Error al abrir el archivo: " <<filename << '\n';
+    }else{
+        file_out << acum << endl;
+        cout << "La escritura fue un exito" << endl;
+    }
+    string cmd = "dot -Tpng errores.dot -o ColaErrores.png";
+    system(cmd.c_str());  
+}
 void insertarError(int Rid, int Rclase,string Rtipo,string RidTarEst,string Rdescripcion) {
     //Crea el ticket de error
     NodoC* nuevo=new NodoC();
@@ -53,7 +86,7 @@ void Colamostrar(){
         }
 
     }else{
-        cout<<endl<<"La Cola de errores se encuentra vacía.";
+        cout<<endl<<"La Cola de errores se encuentra vacia.";
     }
 }
 
@@ -68,14 +101,7 @@ void Colaeliminar(int Rid){
             if(auxiliar->id==Rid){
                 //Nodo encontrado
                 encontrar=true;
-                if(auxiliar==primeroC){
-                    primeroC=primeroC->siguienteC;
-                }else if(auxiliar==ultimoC){
-                    anterior->siguienteC=NULL;
-                    ultimoC=anterior;
-                }else{
-                    anterior->siguienteC=auxiliar->siguienteC;
-                }
+                
             }
             anterior=auxiliar;
             auxiliar=auxiliar->siguienteC;
@@ -84,7 +110,7 @@ void Colaeliminar(int Rid){
         cout<<"La cola de errores actual no tiene elementos\n";
     }
     if(encontrar){
-        cout<<"El error fue eliminado con éxito\n";
+        cout<<"El error fue eliminado con exito\n";
     }
 }
 bool ColaVerificarId(int Rid){
