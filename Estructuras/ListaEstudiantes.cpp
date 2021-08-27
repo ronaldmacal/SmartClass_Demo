@@ -14,6 +14,7 @@ bool LCverificarCarnet(string Rcarnet);
 void LCCorregirDPI(string Rcarnet,string Rdpi);
 void LCCorregirCarnet(string Rcarnet,string RcarnetNuevo);
 void LCCorregirCorreo(string Rcarnet,string Rcorreo);
+void graficarEstudiantes();
 
 //Reportes
 string reporteEstudiantesTXT();
