@@ -1,0 +1,235 @@
+digraph G{
+ rankdir = TB; 
+node [shape=box]; 
+compound=true; 
+"201183728"[label="201183728
+Alvin Huckett"];
+"201024489"[label="201024489
+Nertie Laurenzi"];
+"201210811"[label="201210811
+Lamont Barthrup"];
+"201315898"[label="201315898
+Bernadette Pescud"];
+"201582352"[label="201582352
+Bobina Delacroux"];
+"201115140"[label="201115140
+Pebrook Gircke"];
+"201350393"[label="201350393
+Laurie Tumilty"];
+"201698163"[label="201698163
+Barn Killingbeck"];
+"201402462"[label="201402462
+Joscelin Fewings"];
+"201643353"[label="201643353
+Llywellyn Woodnutt"];
+"201043689"[label="201043689
+Ardene Benediktovich"];
+"201489697"[label="201489697
+Judye Rossborough"];
+"201818908"[label="201818908
+Wilbur Alberts"];
+"201816850"[label="201816850
+Emili Palleske"];
+"201232485"[label="201232485
+Vivian Currer"];
+"201131811"[label="201131811
+Eloise Trevarthen"];
+"201476680"[label="201476680
+Kim Westphal"];
+"201511649"[label="201511649
+Aylmar Raubenheimer"];
+"201255643"[label="201255643
+Alvin Huckett"];
+"201947729"[label="201947729
+Camila Dibbert"];
+"201173540"[label="201173540
+Alvin Huckett"];
+"201704168"[label="201704168
+Tim Goldspink"];
+"201661519"[label="201661519
+Harvey Darbyshire"];
+"201309890"[label="201309890
+Grayce Poltone"];
+"201740604"[label="201740604
+Llywellyn Woodnutt"];
+"201646518"[label="201646518
+Aylmar Raubenheimer"];
+"201766242"[label="201766242
+Franky Viney"];
+"201537627"[label="201537627
+Aylmar Raubenheimer"];
+"201327675"[label="201327675
+Lamont Barthrup"];
+"201897987"[label="201897987
+Michelle Glanister"];
+"201500866"[label="201500866
+Claybourne Nelmes"];
+"201359507"[label="201359507
+Olly Brunelleschi"];
+"201954202"[label="201954202
+Eloise Trevarthen"];
+"201412244"[label="201412244
+Eba Keitley"];
+"201234795"[label="201234795
+Wilbur Alberts"];
+"201594265"[label="201594265
+Ardene Benediktovich"];
+"201790782"[label="201790782
+Claybourne Nelmes"];
+"201374369"[label="201374369
+Lionel Messi"];
+"201709702"[label="201709702
+Dillon Blandamere"];
+"201635991"[label="201635991
+Boycie Langlais"];
+"201389879"[label="201389879
+Darn Studdal"];
+"201375524"[label="201375524
+Tim Goldspink"];
+"201428558"[label="201428558
+Llywellyn Woodnutt"];
+"201933753"[label="201933753
+Bobina Delacroux"];
+"201774497"[label="201774497
+Llywellyn Woodnutt"];
+"201145786"[label="201145786
+Harvey Darbyshire"];
+"201509061"[label="201509061
+Tim Goldspink"];
+"201068965"[label="201068965
+Tim Goldspink"];
+"201991578"[label="201991578
+Olly Brunelleschi"];
+"201803912"[label="201803912
+Emili Palleske"];
+"201921767"[label="201921767
+Consolata Reskelly"];
+"201157605"[label="201157605
+Alonzo Seagrove"];
+"201761573"[label="201761573
+Alonzo Seagrove"];
+"201825364"[label="201825364
+Phillis Syrie"];
+"201022466"[label="201022466
+Wash Sedgemore"];
+"201006295"[label="201006295
+Roderigo Gomme"];
+"201116100"[label="201116100
+Franky Viney"];
+"201773473"[label="201773473
+Krystal Crellin"];
+"201119966"[label="201119966
+Michelle Glanister"];
+"201669286"[label="201669286
+Tim Goldspink"];
+"201147451"[label="201147451
+Ellerey Sherwyn"];
+"201864201"[label="201864201
+Claybourne Nelmes"];
+"201667272"[label="201667272
+Adriaens Timms"];
+"201668149"[label="201668149
+Harvey Darbyshire"];
+"201764124"[label="201764124
+Harvey Darbyshire"];
+"201516603"[label="201516603
+Aylmar Raubenheimer"];
+"201327079"[label="201327079
+Franky Viney"];
+"201906670"[label="201906670
+Franky Viney"];
+"201461415"[label="201461415
+Roderigo Gomme"];
+"201009015"[label="201009015
+Afton Hounson"];
+"201137248"[label="201137248
+Eba Keitley"];
+"201339503"[label="201339503
+Drusilla Louca"];
+"201110247"[label="201110247
+Aylmar Raubenheimer"];
+"201125580"[label="201125580
+Boycie Langlais"];
+"201315288"[label="201315288
+Joscelin Fewings"];
+"201612152"[label="201612152
+Ronald Macal"];
+"201183728" -> "201024489"[dir="both"];
+"201024489" -> "201210811"[dir="both"];
+"201210811" -> "201315898"[dir="both"];
+"201315898" -> "201582352"[dir="both"];
+"201582352" -> "201115140"[dir="both"];
+"201115140" -> "201350393"[dir="both"];
+"201350393" -> "201698163"[dir="both"];
+"201698163" -> "201402462"[dir="both"];
+"201402462" -> "201643353"[dir="both"];
+"201643353" -> "201043689"[dir="both"];
+"201043689" -> "201489697"[dir="both"];
+"201489697" -> "201818908"[dir="both"];
+"201818908" -> "201816850"[dir="both"];
+"201816850" -> "201232485"[dir="both"];
+"201232485" -> "201131811"[dir="both"];
+"201131811" -> "201476680"[dir="both"];
+"201476680" -> "201511649"[dir="both"];
+"201511649" -> "201255643"[dir="both"];
+"201255643" -> "201947729"[dir="both"];
+"201947729" -> "201173540"[dir="both"];
+"201173540" -> "201704168"[dir="both"];
+"201704168" -> "201661519"[dir="both"];
+"201661519" -> "201309890"[dir="both"];
+"201309890" -> "201740604"[dir="both"];
+"201740604" -> "201646518"[dir="both"];
+"201646518" -> "201766242"[dir="both"];
+"201766242" -> "201537627"[dir="both"];
+"201537627" -> "201327675"[dir="both"];
+"201327675" -> "201897987"[dir="both"];
+"201897987" -> "201500866"[dir="both"];
+"201500866" -> "201359507"[dir="both"];
+"201359507" -> "201954202"[dir="both"];
+"201954202" -> "201412244"[dir="both"];
+"201412244" -> "201234795"[dir="both"];
+"201234795" -> "201594265"[dir="both"];
+"201594265" -> "201790782"[dir="both"];
+"201790782" -> "201374369"[dir="both"];
+"201374369" -> "201709702"[dir="both"];
+"201709702" -> "201635991"[dir="both"];
+"201635991" -> "201389879"[dir="both"];
+"201389879" -> "201375524"[dir="both"];
+"201375524" -> "201428558"[dir="both"];
+"201428558" -> "201933753"[dir="both"];
+"201933753" -> "201774497"[dir="both"];
+"201774497" -> "201145786"[dir="both"];
+"201145786" -> "201509061"[dir="both"];
+"201509061" -> "201068965"[dir="both"];
+"201068965" -> "201991578"[dir="both"];
+"201991578" -> "201803912"[dir="both"];
+"201803912" -> "201921767"[dir="both"];
+"201921767" -> "201157605"[dir="both"];
+"201157605" -> "201761573"[dir="both"];
+"201761573" -> "201825364"[dir="both"];
+"201825364" -> "201022466"[dir="both"];
+"201022466" -> "201006295"[dir="both"];
+"201006295" -> "201116100"[dir="both"];
+"201116100" -> "201773473"[dir="both"];
+"201773473" -> "201119966"[dir="both"];
+"201119966" -> "201669286"[dir="both"];
+"201669286" -> "201147451"[dir="both"];
+"201147451" -> "201864201"[dir="both"];
+"201864201" -> "201667272"[dir="both"];
+"201667272" -> "201668149"[dir="both"];
+"201668149" -> "201764124"[dir="both"];
+"201764124" -> "201516603"[dir="both"];
+"201516603" -> "201327079"[dir="both"];
+"201327079" -> "201906670"[dir="both"];
+"201906670" -> "201461415"[dir="both"];
+"201461415" -> "201009015"[dir="both"];
+"201009015" -> "201137248"[dir="both"];
+"201137248" -> "201339503"[dir="both"];
+"201339503" -> "201110247"[dir="both"];
+"201110247" -> "201125580"[dir="both"];
+"201125580" -> "201315288"[dir="both"];
+"201315288" -> "201612152"[dir="both"];
+"201612152" -> "201183728"[dir="both"];
+
+}
+

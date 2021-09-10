@@ -1,0 +1,92 @@
+¿Elements?
+	¿element type="user"?
+		¿item Carnet = "201533907" $?
+		¿item DPI = "4009702438731" $?
+		¿item Nombre = "lionel messi" $?
+		¿item Carrera = "ingenieria Quimica" $?
+		¿item Password = "f33MG" $?
+		¿item Creditos = "149" $?
+		¿item Edad = "26" $?
+	¿$element?
+	¿element type="user"?
+		¿item Carnet = "201491494" $?
+		¿item DPI = "0626298862212" $?
+		¿item Nombre = "josue perez" $?
+		¿item Carrera = "ingenieria Electrica" $?
+		¿item Password = "jxOrwE" $?
+		¿item Creditos = "51" $?
+		¿item Edad = "19" $?
+	¿$element?
+	¿element type="user"?
+		¿item Carnet = "201045090" $?
+		¿item DPI = "3182879872704" $?
+		¿item Nombre = "josue perez" $?
+		¿item Carrera = "ingenieria Mecanica" $?
+		¿item Password = "c5H3hd" $?
+		¿item Creditos = "68" $?
+		¿item Edad = "25" $?
+	¿$element?
+	¿element type="user"?
+		¿item Carnet = "201027375" $?
+		¿item DPI = "5878008078748" $?
+		¿item Nombre = "auron play" $?
+		¿item Carrera = "ingenieria Electrica" $?
+		¿item Password = "oXqp3Z" $?
+		¿item Creditos = "100" $?
+		¿item Edad = "23" $?
+	¿$element?
+	¿element type="user"?
+		¿item Carnet = "201340841" $?
+		¿item DPI = "8910197965661" $?
+		¿item Nombre = "lionel messi" $?
+		¿item Carrera = "ingenieria Mecanica" $?
+		¿item Password = "6Q3Jw" $?
+		¿item Creditos = "18" $?
+		¿item Edad = "20" $?
+	¿$element?
+	¿element type="user"?
+		¿item Carnet = "201296311" $?
+		¿item DPI = "7220764828850" $?
+		¿item Nombre = "auron play" $?
+		¿item Carrera = "ingenieria en ciencias y sistemas" $?
+		¿item Password = "gmUE31Q" $?
+		¿item Creditos = "188" $?
+		¿item Edad = "19" $?
+	¿$element?
+	¿element type="user"?
+		¿item Carnet = "201835603" $?
+		¿item DPI = "5541744429588" $?
+		¿item Nombre = "alma maria hernandez" $?
+		¿item Carrera = "ingenieria Quimica" $?
+		¿item Password = "BBjwdK" $?
+		¿item Creditos = "39" $?
+		¿item Edad = "21" $?
+	¿$element?
+	¿element type="user"?
+		¿item Carnet = "201639410" $?
+		¿item DPI = "5065230216717" $?
+		¿item Nombre = "lionel messi" $?
+		¿item Carrera = "ingenieria Quimica" $?
+		¿item Password = "sW9t74" $?
+		¿item Creditos = "7" $?
+		¿item Edad = "20" $?
+	¿$element?
+	¿element type="user"?
+		¿item Carnet = "201590802" $?
+		¿item DPI = "8963363122932" $?
+		¿item Nombre = "alma maria hernandez" $?
+		¿item Carrera = "ingenieria en ciencias y sistemas" $?
+		¿item Password = "hiRv2" $?
+		¿item Creditos = "78" $?
+		¿item Edad = "29" $?
+	¿$element?
+	¿element type="user"?
+		¿item Carnet = "201798433" $?
+		¿item DPI = "2025270525778" $?
+		¿item Nombre = "luis garcia" $?
+		¿item Carrera = "ingenieria Electrica" $?
+		¿item Password = "18WlR5" $?
+		¿item Creditos = "18" $?
+		¿item Edad = "20" $?
+	¿$element?
+¿$Elements?
