@@ -1,3 +1,4 @@
+
 reserved = {
     'Elements': 'TELEMENTS',
     'element' : 'TELEMENT',
@@ -41,7 +42,7 @@ def t_NUMBER(t):
 
 def t_NORMSTRING(t):
     r'\"(\\.|[^"\\])*\"'
-    # print("la cadena es: '%s" % t.value)
+    #print("la cadena es: '%s" % t.value)
     return t
 
 # Ignored characters

@@ -1,159 +1,140 @@
-class Node:
-    def __init__(self,label):
-        self.label=label
-        self._padre=None
-        self._derecha=None
-        self._izquierda=None
-        self.altura=0
+class Nodo(object):
+    def __init__(self,carnet):
+        self.carnet=carnet
+        self.izquierda=None
+        self.derecha=None
+        self.altura=1
 
-    @property
-    def derecha(self):
-        return self._derecha
+class ArbolAVL(object):
+    def obtenerAltura(self,raiz):
+        if not raiz:
+            return 0
+        return raiz.altura
 
-    @derecha.setter
-    def derecha(self,node):
-        if node is not None:
-            node._padre=self
-            self._derecha=node
+    def obtenerBalance(self,raiz):
+        if not raiz:
+            return 0
+        return self.obtenerAltura(raiz.izquierda)-self.obtenerAltura(raiz.derecha)
 
-    @property
-    def izquierda(self):
-        return self._izquierda
+    #Modo de rotación por izquierda
+    def rotarIzquierda(self,nodo):
+        nodoy=nodo.derecha
+        nodox=nodoy.izquierda
+        nodoy.izquierda=nodo
+        nodo.derecha=nodox
+        nodo.altura=1+ max(self.obtenerAltura(nodo.izquierda),
+                           self.obtenerAltura(nodo.derecha))
+        nodoy.altura=1+max(self.obtenerAltura(nodoy.izquierda),
+                           self.obtenerAltura(nodoy.derecha))
+        return nodoy
 
-    @izquierda.setter
-    def izquierda(self,node):
-        if node is not None:
-            node._padre=self
-            self._izquierda=node
+    #Modo de rotación por derecha
+    def rotarDerecha(self,nodo):
+        nodoy=nodo.izquierda
+        nodox=nodoy.derecha
+        nodoy.derecha=nodo
+        nodo.izquierda=nodox
+        nodo.altura=1+max(self.obtenerAltura(nodo.izquierda),
+                          self.obtenerAltura(nodo.derecha))
+        nodoy.altura=1+max(self.obtenerAltura(nodoy.izquierda),
+                           self.obtenerAltura(nodoy.derecha))
+        return nodoy
 
-    @property
-    def padre(self):
-        return self._padre
+    #Metodo para obtener el valor minimo del nodo
+    def minimoNodo(self,raiz):
+        if raiz is None or raiz.izquierda is None:
+            return raiz
+        return self.minimoNodo(raiz.izquierda)
 
-    @padre.setter
-    def padre(self,node):
-        if node is not None:
-            self._padre=node
-            self.altura=self.padre.altura+1
+    #Metodo de insertar
+    def insertar(self,raiz,carnet):
+        if not raiz:
+            return Nodo(carnet)
+        elif carnet < raiz.carnet:
+            raiz.izquierda=self.insertar(raiz.izquierda,carnet)
         else:
-            self.altura=0
+            raiz.derecha=self.insertar(raiz.derecha,carnet)
+        raiz.altura=1+max(self.obtenerAltura(raiz.izquierda),
+                          self.obtenerAltura(raiz.derecha))
 
-class ArbolAVL:
-    def __init__(self):
-        self.raiz=None
-        self.tamano=0
+        #Balancear el árbol AVL
+        balance=self.obtenerBalance(raiz)
+        if balance>1:
+            if carnet < raiz.izquierda.carnet:
+                return self.rotarDerecha(raiz)
+            else:
+                raiz.izquierda=self.rotarIzquierda(raiz.izquierda)
+                return self.rotarDerecha(raiz)
+        if balance<-1:
+            if carnet>raiz.derecha.carnet:
+                return self.rotarIzquierda(raiz)
+            else:
+                raiz.derecha=self.rotarDerecha(raiz.derecha)
+                return self.rotarIzquierda(raiz)
+        return raiz
 
-    def raiz(self):
-        return self.raiz
-
-    def vacio(self):
-        if self.raiz is None:
-            return True
-        return False
-
-    def insertar(self,valor):
-        node=Node(valor)
-        if self.raiz is None:
-            self.raiz=node
-            self.raiz.altura=0
-            self.size=1
+    #Metodo de eliminar
+    def eliminar(self,carnet,raiz):
+        if not raiz:
+            return raiz
+        elif carnet<raiz.carnet:
+            raiz.izquierda=self.eliminar(raiz.izquierda,carnet)
+        elif carnet>raiz.carnet:
+            raiz.derecha=self.eliminar(raiz.derecha,carnet)
         else:
-            nodo_padre=None
-            nodo_actual=self.raiz
+            if raiz.izquierda is None:
+                temp=raiz.derecha
+                raiz=None
+                return temp
+            elif raiz.derecha is None:
+                temp=raiz.izquierda
+                raiz=None
+                return temp
+            temp=self.minimoNodo(raiz.derecha)
+            raiz.carnet=temp.carnet
+            raiz.derecha=self.eliminar(raiz.derecha,temp.carnet)
 
-            while True:
-                if nodo_actual is not None:
-                    nodo_padre=nodo_actual
+        if raiz is None:
+            return raiz
 
-                    if node.label < nodo_actual.label:
-                        nodo_actual=nodo_actual.izquierda
-                    else:
-                        nodo_actual=nodo_actual.derecha
-                else:
-                    node.altura=nodo_padre.altura
-                    nodo_padre.altura+=1
-                    if node.label < nodo_padre.label:
-                        nodo_padre.izquierda=node
-                    else:
-                        nodo_padre.derecha=node
-                    self.balancear(node)
-                    self.size +=1
-                    break
+        #Medir alturas del ALV
+        raiz.altura=1+max(self.obtenerAltura(raiz.izquierda),
+                          self.obtenerAltura(raiz.derecha))
+        balance=self.obtenerBalance(raiz)
 
-    def rotacion_izquierda(self,node):
-        print("Rota izquierda")
-        auxiliar=node.padre.label
-        node.padre.label=node.label
-        node.padre.derecha=Node(auxiliar)
-        node.padre.derecha.altura=node.padre.altura+1
-        node.padre.izquierda=node.derecha
+        #Balancear el arbol AVL
+        if balance>1:
+            if self.obtenerBalance(raiz.izquierda)>=0:
+                return self.rotarDerecha(raiz)
+            else:
+                raiz.izquierda=self.rotarIzquierda(raiz.izquierda)
+                return self.rotarDerecha(raiz)
+        if balance<-1:
+            if self.obtenerBalance(raiz.derecha)<=0:
+                return self.rotarIzquierda(raiz)
+            else:
+                raiz.derecha=self.rotarDerecha(raiz.derecha)
+                return self.rotarIzquierda(raiz)
+        return raiz
 
-    def rotacion_derecha(self,node):
-        print("Rota derecha")
-        auxiliar=node.padre.label
-        node.padre.label=node.label
-        node.padre.izquierda=Node(auxiliar)
-        node.padre.left.altura=node.padre.altura+1
-        node.padre.derecha=node.derecha
+    #Metodo PreOrder
+    def preOrder(self,raiz):
+        if not raiz:
+            return
+        print("{0} ".format(raiz.carnet),end="")
+        self.preOrder(raiz.izquierda)
+        self.preOrder(raiz.derecha)
 
-    def doble_rotacion_izquierda(self,node):
-        print("Doble rota izquierda")
-        self.rotacion_derecha(node.getDerecha().getDerecha())
-        self.rotacion_izquierda(node)
-
-    def doble_rotacion_derecha(self,node):
-        print("Doble rota derecha")
-        self.rotacion_izquierda(node.getIzquierda().getIzquierda())
-        self.rotacion_derecha(node)
-
-    def balancear(self,node):
-        newnode=node
-        while newnode is not None:
-            altura_derecha=newnode.altura
-            altura_izquierda=newnode.altura
-            if newnode.derecha is not None:
-                altura_derecha=newnode.derecha.altura
-            if newnode.izquierda is not None:
-                altura_izquierda=newnode.izquierda.altura
-            if abs(altura_izquierda-altura_derecha)>1:
-                if altura_izquierda > altura_derecha:
-                    izquierda_hijo=newnode.izquierda
-                    if izquierda_hijo is not None:
-                        a_derecha=(izquierda_hijo.derecha.altura
-                                   if(izquierda_hijo.derecha is not None) else 0)
-                        a_izquierda=(izquierda_hijo.izquierda.altura
-                                     if(izquierda_hijo.izquierda is not None) else 0)
-                        if(a_izquierda > a_derecha):
-                            self.rotacion_izquierda(newnode)
-                            break
-                        else:
-                            self.doble_rotacion_derecha(newnode)
-                            break
-                else:
-                    derecha_hijo=newnode.derecha
-                    if derecha_hijo is not None:
-                        a_derecha=(derecha_hijo.derecha.altura
-                                   if(derecha_hijo.derecha is not None) else 0)
-                        a_izquierda=(derecha_hijo.izquierda.altura
-                                     if(derecha_hijo.izquierda is not None) else 0)
-                    if (a_izquierda > a_derecha):
-                        self.doble_rotacion_izquierda(newnode)
-                        break
-                    else:
-                        self.rotacion_derecha(newnode)
-                        break
-            newnode=newnode.padre
-
-    #Muestra los datos En-orden
-    def mostrar(self,actual):
-        if actual is not None:
-            self.mostrar(actual.izquierda)
-            print(actual.label, end=" ")
-            self.mostrar(actual.derecha)
-
-    def preOrder(self,actual):
-        if actual is not None:
-            self.mostrar(actual.izquierda)
-            self.mostrar(actual.derecha)
-            print(actual.label, end=" ")
-
+    #Metodo mostrar datos
+    def mostrar(self,actual,acum,ultimo):
+        if actual!=None:
+            print(acum)
+            if ultimo:
+                print("R-----")
+                acum+="       "
+            else:
+                print("L-----")
+                acum+="|    "
+            print(actual.carnet)
+            self.mostrar(actual.izquierda,acum,False)
+            self.mostrar(actual.derecha,acum,True)

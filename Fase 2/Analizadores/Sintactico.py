@@ -1,11 +1,11 @@
 from Analizadores.Lexico import tokens
 
-# dictionary of names
-names = {}
+#Dictionary of names
+datos = []
 
 def p_statement_group(t):
     'statement : LQUESTION TELEMENTS RQUESTION elementos LQUESTION DOLAR TELEMENTS RQUESTION'
-    print('Ok')
+    print('Lectura realizada con éxito.')
 
 def p_elementos_group(t):
     """elementos : elementos elemento
@@ -18,6 +18,7 @@ def p_elemento(t):
 def p_tipoElemento(t):
     """tipoElemento : TTYPE EQUALS NORMSTRING
     """
+    datos.append(t[3])
 
 def p_items(t):
     """items : items item
@@ -33,6 +34,9 @@ def p_valueItem(t):
     """valueItem : NORMSTRING
                  | NUMBER
                  """
+    t[0]=t[1]
+    datos.append(t[1])
+
 def p_tipeItem(t):
     """tipeItem : TCARNET
                 | TDPI
