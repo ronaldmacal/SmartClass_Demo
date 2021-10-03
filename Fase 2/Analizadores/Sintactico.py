@@ -44,6 +44,7 @@ def p_tipeItem(t):
                 | TCARRERA
                 | TPASSWORD
                 | TCREDITOS
+                | TCORREO
                 | TEDAD
                 | TDESCRIPCION
                 | TMATERIA

@@ -1,7 +1,9 @@
+from Estructuras.Tareas_MatrizDispersa import Matriz
+
 class Nodo(object):
     def __init__(self,mes=None,siguiente=None,anterior=None):
         self.mes=mes
-        #Aqui va la matriz
+        self.matrizd=Matriz()
         self.siguiente=siguiente
         self.anterior=anterior
 

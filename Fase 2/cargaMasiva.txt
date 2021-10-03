@@ -4,6 +4,7 @@
 		¿item DPI = "4009702438731" $?
 		¿item Nombre = "lionel messi" $?
 		¿item Carrera = "ingenieria Quimica" $?
+		¿item Correo = "barkpeso@hotmail.com" $?
 		¿item Password = "f33MG" $?
 		¿item Creditos = "149" $?
 		¿item Edad = "26" $?
@@ -13,6 +14,7 @@
 		¿item DPI = "0626298862212" $?
 		¿item Nombre = "josue perez" $?
 		¿item Carrera = "ingenieria Electrica" $?
+		¿item Correo = "luistaa@hotmail.com" $?
 		¿item Password = "jxOrwE" $?
 		¿item Creditos = "51" $?
 		¿item Edad = "19" $?
@@ -22,6 +24,7 @@
 		¿item DPI = "3182879872704" $?
 		¿item Nombre = "josue perez" $?
 		¿item Carrera = "ingenieria Mecanica" $?
+		¿item Correo = "peserta@gmail.com" $?
 		¿item Password = "c5H3hd" $?
 		¿item Creditos = "68" $?
 		¿item Edad = "25" $?
@@ -31,6 +34,7 @@
 		¿item DPI = "5878008078748" $?
 		¿item Nombre = "auron play" $?
 		¿item Carrera = "ingenieria Electrica" $?
+		¿item Correo = "useratasta@hotmail.com" $?
 		¿item Password = "oXqp3Z" $?
 		¿item Creditos = "100" $?
 		¿item Edad = "23" $?
@@ -40,6 +44,7 @@
 		¿item DPI = "8910197965661" $?
 		¿item Nombre = "lionel messi" $?
 		¿item Carrera = "ingenieria Mecanica" $?
+		¿item Correo = "retastww@hotmail.com" $?
 		¿item Password = "6Q3Jw" $?
 		¿item Creditos = "18" $?
 		¿item Edad = "20" $?
@@ -49,6 +54,7 @@
 		¿item DPI = "7220764828850" $?
 		¿item Nombre = "auron play" $?
 		¿item Carrera = "ingenieria en ciencias y sistemas" $?
+		¿item Correo = "aluisplayy@hotmail.com" $?
 		¿item Password = "gmUE31Q" $?
 		¿item Creditos = "188" $?
 		¿item Edad = "19" $?
@@ -58,6 +64,7 @@
 		¿item DPI = "5541744429588" $?
 		¿item Nombre = "alma maria hernandez" $?
 		¿item Carrera = "ingenieria Quimica" $?
+		¿item Correo = "hellyeahhcorreo@hotmail.com" $?
 		¿item Password = "BBjwdK" $?
 		¿item Creditos = "39" $?
 		¿item Edad = "21" $?
@@ -67,6 +74,7 @@
 		¿item DPI = "5065230216717" $?
 		¿item Nombre = "lionel messi" $?
 		¿item Carrera = "ingenieria Quimica" $?
+		¿item Correo = "alvprueba@hotmail.com" $?
 		¿item Password = "sW9t74" $?
 		¿item Creditos = "7" $?
 		¿item Edad = "20" $?
@@ -76,6 +84,7 @@
 		¿item DPI = "8963363122932" $?
 		¿item Nombre = "alma maria hernandez" $?
 		¿item Carrera = "ingenieria en ciencias y sistemas" $?
+		¿item Correo = "jajarpaws@hotmail.com" $?
 		¿item Password = "hiRv2" $?
 		¿item Creditos = "78" $?
 		¿item Edad = "29" $?
@@ -85,6 +94,7 @@
 		¿item DPI = "2025270525778" $?
 		¿item Nombre = "luis garcia" $?
 		¿item Carrera = "ingenieria Electrica" $?
+		¿item Correo = "peraweasd@hotmail.com" $?
 		¿item Password = "18WlR5" $?
 		¿item Creditos = "18" $?
 		¿item Edad = "20" $?

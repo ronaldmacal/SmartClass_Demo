@@ -1,7 +1,8 @@
 import sys
-from Anios_LD import ListaAnios
+from Estructuras.Anios_LD import ListaAnios
+data_estudiante=[]
 class Nodo(object):
-    def __init__(self, carnet,dpi,nombre,carrera,correo,password,creditos,edad,ListaAnios):
+    def __init__(self, carnet,dpi,nombre,carrera,correo,password,creditos,edad):
         self.carnet = carnet
         self.dpi=dpi
         self.nombre=nombre
@@ -89,7 +90,7 @@ class ArbolAVL(object):
 
     #Metodo para la eliminacion de un nodo
     def eliminar(self, raiz, carnet):
-        # Find the node to be deleted and remove it
+        # encontrar el nodo
         if not raiz:
             return raiz
         elif carnet < raiz.carnet:
@@ -133,6 +134,34 @@ class ArbolAVL(object):
                 return self.rotarIzquierda(raiz)
         return raiz
 
+    #Modificar un valor
+    def modificar(self, raiz, carnet, dpi, nombre, carrera, correo, password, creditos, edad):
+        if not raiz:
+            return raiz
+        elif carnet < raiz.carnet:
+            raiz.izquierda = self.modificar(raiz.izquierda, carnet, dpi, nombre, carrera, correo, password, creditos, edad)
+        elif carnet > raiz.carnet:
+            raiz.derecha = self.modificar(raiz.derecha, carnet, dpi, nombre, carrera, correo, password, creditos, edad)
+        else:
+            if raiz.izquierda is None:
+                temp = raiz.derecha
+                raiz = None
+                return temp
+            elif raiz.derecha is None:
+                temp = raiz.izquierda
+                raiz = None
+                return temp
+            temp = self.nodoMinimo(raiz.derecha)
+            raiz.dpi = dpi
+            raiz.nombre = nombre
+            raiz.carrera = carrera
+            raiz.correo = correo
+            raiz.password = password
+            raiz.creditos = creditos
+            raiz.edad = edad
+        if raiz is None:
+            return raiz
+
     # Recorrido Post-Orden
     def postOrden(self, raiz):
         if not raiz:
@@ -156,6 +185,22 @@ class ArbolAVL(object):
         print("{0} ".format(raiz.carnet), end="")
         self.preOrden(raiz.izquierda)
         self.preOrden(raiz.derecha)
+
+    def buscarCarnet(self, raiz, carnet_buscar):
+        global data_estudiante
+        if not raiz:
+            return
+        if raiz.carnet==carnet_buscar:
+            data_estudiante.append(raiz.carnet)
+            data_estudiante.append(raiz.dpi)
+            data_estudiante.append(raiz.nombre)
+            data_estudiante.append(raiz.carrera)
+            data_estudiante.append(raiz.correo)
+            data_estudiante.append(raiz.password)
+            data_estudiante.append(raiz.creditos)
+            data_estudiante.append(raiz.edad)
+        self.buscarCarnet(raiz.izquierda, carnet_buscar)
+        self.buscarCarnet(raiz.derecha, carnet_buscar)
 
     #Muestra una estructura del arbol
     def printHelper(self, currPtr, indent, last):

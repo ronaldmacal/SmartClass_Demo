@@ -1,8 +1,16 @@
 class Nodo(object):
-    def __init__(self,carnet=None,siguiente=None,anterior=None):
+    def __init__(self,carnet=None, nombre=None, descripcion=None, materia=None, fecha=None, hora=None, estado=None, siguiente=None,anterior=None):
         self.carnet=carnet
+        self.nombre=nombre
+        self.descipcion=descripcion
+        self.materia=materia
+        self.fecha=fecha
+        self.hora=hora
+        self.estado=estado
         self.siguiente=siguiente
         self.anterior=anterior
+        self.fila=0
+        self.columna=0
 
 class ListaTareas(object):
     def __init__(self):
@@ -11,8 +19,10 @@ class ListaTareas(object):
         self.contador=0
 
     #Metodo de insertar en la cola
-    def insertar(self,carnet):
-        nodo_nuevo=Nodo(carnet)
+    def insertar(self, fila, columna, carnet, nombre, descripcion, materia, fecha, hora, estado):
+        self.fila=fila
+        self.columna=columna
+        nodo_nuevo=Nodo(carnet,carnet, nombre, descripcion, materia, fecha, hora, estado)
 
         if self.primero is None:
             self.primero=nodo_nuevo

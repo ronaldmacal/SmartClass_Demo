@@ -1,8 +1,8 @@
-from Semestres_LD import ListaSemestres
-from Meses_LD import ListaMeses
+from Estructuras.Semestres_LD import ListaSemestres
+from Estructuras.Meses_LD import ListaMeses
 
 class Nodo(object):
-    def __init__(self,anio=None,siguiente=None,anterior=None,ListaSemestres=None,ListaMeses=None):
+    def __init__(self,anio=None,siguiente=None,anterior=None):
         self.anio=anio
         self.ListaMeses=ListaMeses()
         self.ListaSemestres=ListaSemestres()

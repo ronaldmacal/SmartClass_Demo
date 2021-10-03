@@ -1,7 +1,7 @@
-from Cursos_ArbolB import Arbol_B
+from Estructuras.Cursos_ArbolB import Arbol_B
 
 class Nodo(object):
-    def __init__(self,semestre=None,siguiente=None,anterior=None,ArbolCursos=None):
+    def __init__(self, semestre=None, siguiente=None, anterior=None):
         self.semestre=semestre
         self.ArbolCursos=Arbol_B(5)
         self.siguiente=siguiente
