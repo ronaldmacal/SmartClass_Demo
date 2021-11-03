@@ -1,0 +1,25 @@
+<!-- login.component.html -->
+
+<div class="login">
+  <form class="custom-form" method="post">
+    <h1>Iniciar sesión</h1>
+    <input
+      type="email"
+      name="email"
+      [(ngModel)]="email"
+      placeholder="Ingrese correo"
+      required="required"
+    />
+    <input
+      type="password"
+      name="password"
+      [(ngModel)]="password"
+      placeholder="Ingrese contraseña"
+      required="required"
+    />
+    <!--<button type="submit" (click)="login()">Log in</button> -->
+    <button type="submit" (click)="login()">Ingresar</button>
+    <p></p>
+    <button type="submit" (click)="login()">Registrar nuevo estudiante</button>
+  </form>
+</div>
