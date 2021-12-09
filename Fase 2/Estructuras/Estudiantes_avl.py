@@ -215,3 +215,32 @@ class ArbolAVL(object):
             print(currPtr.carnet)
             self.printHelper(currPtr.izquierda, indent, False)
             self.printHelper(currPtr.derecha, indent, True)
+
+    #Modificaciones para la fase 3
+    #Metodo que revisa si el carnet existe en la app
+    def siexiste(self,raiz,carnet):
+        if raiz!=None:
+            if raiz.carnet==carnet:
+                return True
+            self.siexiste(raiz.izquierda,carnet)
+            self.siexiste(raiz.derecha,carnet)
+        return False
+
+    def desarmarfecha(self,fecha):
+        arreglo=fecha.split(sep="/")
+        return arreglo
+
+    def agregar_year(self,raiz,carnet,fecha):
+        if not raiz:
+            return
+        if raiz.carnet==carnet:
+            #Revisar primero si existe el carnet
+            bool_existe= self.siexiste(raiz, carnet)
+            if bool_existe==True:
+                print("Existe")
+                print("El arreglo de fecha es: ")
+                print(self.desarmarfecha(fecha))
+            else:
+                print("No existe")
+        self.buscarCarnet(raiz.izquierda, carnet)
+        self.buscarCarnet(raiz.derecha, carnet)

@@ -2,12 +2,14 @@
 from Estructuras.Estudiantes_avl import ArbolAVL,data_estudiante
 from Estructuras.Cursos_ArbolB import Arbol_B
 from Estructuras.Grafo import Grafo
+from Fase3_Estructuras.tabla_hash import tabla_hash
 
 #Flask para el servidor de la API y librerías extras
 from flask import Flask, jsonify, request
+from cryptography.fernet import Fernet
 from Analizadores.Sintactico import parser,datos
 
-# Estructuras a utilizar
+# Estructuras fase 2
 EstudiantesArbolAVL = ArbolAVL()
 raiz_avl=None
 PensumCursosGeneral = Arbol_B(5)
@@ -36,7 +38,6 @@ class Tarea():
     Fecha = ''
     Hora = ''
     Estado =''
-
 @app.route('/carga',methods=['POST'])
 def cargamasiva():
     global raiz_avl
@@ -90,14 +91,19 @@ def reportes():
     #Arbol B (Tipo 3), Arbol de cursos (Tipo 4)
     return "Reportes de la API"
 
+
+#-----------------------------------------------------------------------------------------------------------------
 @app.route('/cursosEstudiante',methods=['POST'])
 def cursosEstudiante():
     return "Cargar cursos para estudiantes"
 
 @app.route('/recordatorios',methods=['POST','UPDATE','DELETE','GET'])
 def crudrecordatorios():
+    global raiz_avl
+    archivo=request.get_json()
     if request.method=='POST':
         #POST->Crear uno nuevo
+
         return "POST"
     elif request.method=='UPDATE':
         #UPDATE->Modificar
@@ -114,10 +120,18 @@ def crudrecordatorios():
 def crudestudiantes():
     global raiz_avl
     archivo = request.get_json()
+    #Metodo POST útil para insertar nuevos estudiantes
     if request.method=='POST':
-        raiz_avl = EstudiantesArbolAVL.insertar(raiz_avl, archivo['carnet'], archivo['DPI'], archivo['nombre'], archivo['carrera'],
+        if(len(archivo)==1):
+            raiz_avl=EstudiantesArbolAVL.insertar(raiz_avl, archivo['carnet'], archivo['DPI'], archivo['nombre'], archivo['carrera'],
                                                archivo['correo'], archivo['password'], archivo['creditos'], archivo['edad'])
-        return "Estudiante creado con éxito"
+        else:
+            for x in range(0,len(archivo)-1,1):
+                print(archivo[x]['carnet'])
+                raiz_avl = EstudiantesArbolAVL.insertar(raiz_avl, archivo[x]['carnet'], archivo[x]['DPI'], archivo[x]['nombre'],
+                                                        archivo[x]['carrera'], archivo[x]['correo'], archivo[x]['password'],
+                                                        archivo[x]['creditos'], archivo[x]['edad'])
+        return "Estudiante o estudiantes creados con éxito"
     elif request.method=='UPDATE':
         raiz_avl=EstudiantesArbolAVL.modificar(raiz_avl, archivo['carnet'], archivo['DPI'], archivo['nombre'], archivo['carrera'],
                                                archivo['correo'], archivo['password'], archivo['creditos'], archivo['edad'])
@@ -125,6 +139,7 @@ def crudestudiantes():
     elif request.method=='DELETE':
         carnet=archivo['carnet']
         raiz_avl=EstudiantesArbolAVL.eliminar(raiz_avl,carnet)
+        EstudiantesArbolAVL.printHelper(raiz_avl, "", True)
         return "Estudiante: "+carnet+" eliminado con éxito"
     elif request.method=='GET':
         carnet = archivo['carnet']
@@ -155,3 +170,6 @@ def cursosPensum():
 
 if __name__=="__main__":
     app.run(debug=True, port=3000)
+
+
+

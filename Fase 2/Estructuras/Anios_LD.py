@@ -4,8 +4,8 @@ from Estructuras.Meses_LD import ListaMeses
 class Nodo(object):
     def __init__(self,anio=None,siguiente=None,anterior=None):
         self.anio=anio
-        self.ListaMeses=ListaMeses()
-        self.ListaSemestres=ListaSemestres()
+        #self.ListaMeses=ListaMeses()
+        #self.ListaSemestres=ListaSemestres()
         self.siguiente=siguiente
         self.anterior=anterior
 
